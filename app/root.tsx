@@ -10,16 +10,11 @@ import {
 } from '@remix-run/react';
 
 import MainNavigation from '~/components/MainNavigation';
-
 import mainStyles from '~/styles/main.css';
-import navStyles from '~/components/MainNavigation.css';
-import gameStyles from '~/components/GameForm.css';
 
 export const links: LinksFunction = () => [
   ...(cssBundleHref ? [{ rel: 'stylesheet', href: cssBundleHref }] : []),
   { rel: 'stylesheet', href: mainStyles },
-  { rel: 'stylesheet', href: navStyles },
-  { rel: 'stylesheet', href: gameStyles },
 ];
 
 export default function App() {

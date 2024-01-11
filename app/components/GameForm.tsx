@@ -1,9 +1,17 @@
 import { useEffect, useState, ChangeEvent } from 'react';
 import { Form, useActionData, useNavigation } from '@remix-run/react';
+import { LinksFunction } from '@remix-run/node';
+
+import gameFormStyles from '~/components/GameForm.css'
 
 type ActionData = {
   message?: string;
 };
+
+export const links: LinksFunction = () => [
+  { rel: 'stylesheet', href: gameFormStyles },
+];
+
 
 export default function GameForm() {
   const navigation = useNavigation();
