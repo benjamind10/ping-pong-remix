@@ -1,28 +1,34 @@
-import { LinksFunction } from '@remix-run/node';
-import { Form, useActionData, useNavigation } from '@remix-run/react';
 import { useEffect, useState } from 'react';
-import gameStyles from '~/components/GameForm.css'; // Adjust the path as necessary
+import { Form, useActionData, useNavigation } from '@remix-run/react';
 
 type ActionData = {
   message?: string;
 };
 
-export const links: LinksFunction = () => [
-  { rel: 'stylesheet', href: gameStyles },
-];
-
-export default function PingPongGameForm() {
+export default function GameForm() {
   const navigation = useNavigation();
   const isSubmitting = navigation.state === 'submitting';
   const data = useActionData<ActionData>();
   const [gameId, setGameId] = useState('');
+  const [player1, setPlayer1] = useState('');
+  const [player2, setPlayer2] = useState('');
 
-  // Array of player names
   const players = ['Goob', 'Ben', 'Ricky', 'Spare'];
 
   useEffect(() => {
     setGameId(Math.floor(Math.random() * 10000).toString());
+    setPlayer1(players[0]);
+    setPlayer2(players[1]);
   }, []);
+
+  useEffect(() => {
+    if (player1 === player2) {
+      const nextPlayer = players.find((p) => p !== player1);
+      if (nextPlayer) {
+        setPlayer2(nextPlayer);
+      }
+    }
+  }, [player1, players]);
 
   return (
     <Form method="post" id="pingpong-form" className="formContainer">
@@ -33,7 +39,7 @@ export default function PingPongGameForm() {
           Game ID:
         </label>
         <input
-          type="number"
+          type="text"
           id="gameId"
           name="gameId"
           required
@@ -57,7 +63,14 @@ export default function PingPongGameForm() {
         <label htmlFor="player1" className="label">
           Player 1:
         </label>
-        <select id="player1" name="player1" required className="select">
+        <select
+          id="player1"
+          name="player1"
+          required
+          className="select"
+          value={player1}
+          onChange={(e) => setPlayer1(e.target.value)}
+        >
           {players.map((player) => (
             <option key={player} value={player}>
               {player}
@@ -70,12 +83,21 @@ export default function PingPongGameForm() {
         <label htmlFor="player2" className="label">
           Player 2:
         </label>
-        <select id="player2" name="player2" required className="select">
-          {players.map((player) => (
-            <option key={player} value={player}>
-              {player}
-            </option>
-          ))}
+        <select
+          id="player2"
+          name="player2"
+          required
+          className="select"
+          value={player2}
+          onChange={(e) => setPlayer2(e.target.value)}
+        >
+          {players
+            .filter((p) => p !== player1)
+            .map((player) => (
+              <option key={player} value={player}>
+                {player}
+              </option>
+            ))}
         </select>
       </div>
 
