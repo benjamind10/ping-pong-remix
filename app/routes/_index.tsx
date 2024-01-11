@@ -1,5 +1,5 @@
 import type { MetaFunction } from '@remix-run/node';
-import PingPongGameForm from '~/components/GameForm';
+import GameForm from '~/components/GameForm';
 
 export const meta: MetaFunction = () => {
   return [
@@ -12,7 +12,7 @@ export default function Index() {
   return (
     <main>
       <h1>Enter Data:</h1>
-      <PingPongGameForm />
+      <GameForm />
     </main>
   );
 }

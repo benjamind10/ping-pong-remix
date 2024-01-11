@@ -1,7 +1,7 @@
 import { LinksFunction } from '@remix-run/node';
 import { Form, useActionData, useNavigation } from '@remix-run/react';
-
-import gameStyles from '~/components/GameForm.css';
+import { useEffect, useState } from 'react';
+import gameStyles from '~/components/GameForm.css'; // Adjust the path as necessary
 
 type ActionData = {
   message?: string;
@@ -15,6 +15,14 @@ export default function PingPongGameForm() {
   const navigation = useNavigation();
   const isSubmitting = navigation.state === 'submitting';
   const data = useActionData<ActionData>();
+  const [gameId, setGameId] = useState('');
+
+  // Array of player names
+  const players = ['Goob', 'Ben', 'Ricky', 'Spare'];
+
+  useEffect(() => {
+    setGameId(Math.floor(Math.random() * 10000).toString());
+  }, []);
 
   return (
     <Form method="post" id="pingpong-form" className="formContainer">
@@ -30,6 +38,8 @@ export default function PingPongGameForm() {
           name="gameId"
           required
           className="input"
+          value={gameId}
+          readOnly
         />
       </div>
 
@@ -47,26 +57,26 @@ export default function PingPongGameForm() {
         <label htmlFor="player1" className="label">
           Player 1:
         </label>
-        <input
-          type="text"
-          id="player1"
-          name="player1"
-          required
-          className="input"
-        />
+        <select id="player1" name="player1" required className="select">
+          {players.map((player) => (
+            <option key={player} value={player}>
+              {player}
+            </option>
+          ))}
+        </select>
       </div>
 
       <div>
         <label htmlFor="player2" className="label">
           Player 2:
         </label>
-        <input
-          type="text"
-          id="player2"
-          name="player2"
-          required
-          className="input"
-        />
+        <select id="player2" name="player2" required className="select">
+          {players.map((player) => (
+            <option key={player} value={player}>
+              {player}
+            </option>
+          ))}
+        </select>
       </div>
 
       <div>
@@ -131,4 +141,3 @@ export default function PingPongGameForm() {
     </Form>
   );
 }
-``;
