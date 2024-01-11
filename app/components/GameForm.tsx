@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, ChangeEvent } from 'react';
 import { Form, useActionData, useNavigation } from '@remix-run/react';
 
 type ActionData = {
@@ -9,11 +9,12 @@ export default function GameForm() {
   const navigation = useNavigation();
   const isSubmitting = navigation.state === 'submitting';
   const data = useActionData<ActionData>();
-  const [gameId, setGameId] = useState('');
-  const [player1, setPlayer1] = useState('');
-  const [player2, setPlayer2] = useState('');
 
-  const players = ['Goob', 'Ben', 'Ricky', 'Spare'];
+  const [gameId, setGameId] = useState<string>('');
+  const [player1, setPlayer1] = useState<string>('');
+  const [player2, setPlayer2] = useState<string>('');
+
+  const players: string[] = ['Goob', 'Ben', 'Ricky', 'Spare'];
 
   useEffect(() => {
     setGameId(Math.floor(Math.random() * 10000).toString());
@@ -23,12 +24,16 @@ export default function GameForm() {
 
   useEffect(() => {
     if (player1 === player2) {
-      const nextPlayer = players.find((p) => p !== player1);
+      const nextPlayer = players.find(p => p !== player1);
       if (nextPlayer) {
         setPlayer2(nextPlayer);
       }
     }
-  }, [player1, players]);
+  }, [player1, player2, players]);
+
+  const handlePlayerChange = (e: ChangeEvent<HTMLSelectElement>, playerSetter: (value: string) => void) => {
+    playerSetter(e.target.value);
+  };
 
   return (
     <Form method="post" id="pingpong-form" className="formContainer">
@@ -69,9 +74,9 @@ export default function GameForm() {
           required
           className="select"
           value={player1}
-          onChange={(e) => setPlayer1(e.target.value)}
+          onChange={(e) => handlePlayerChange(e, setPlayer1)}
         >
-          {players.map((player) => (
+          {players.map(player => (
             <option key={player} value={player}>
               {player}
             </option>
@@ -89,15 +94,13 @@ export default function GameForm() {
           required
           className="select"
           value={player2}
-          onChange={(e) => setPlayer2(e.target.value)}
+          onChange={(e) => handlePlayerChange(e, setPlayer2)}
         >
-          {players
-            .filter((p) => p !== player1)
-            .map((player) => (
-              <option key={player} value={player}>
-                {player}
-              </option>
-            ))}
+          {players.filter(p => p !== player1).map(player => (
+            <option key={player} value={player}>
+              {player}
+            </option>
+          ))}
         </select>
       </div>
 
@@ -144,7 +147,13 @@ export default function GameForm() {
         <label htmlFor="loser" className="label">
           Loser:
         </label>
-        <input type="text" id="loser" name="loser" required className="input" />
+        <input 
+          type="text" 
+          id="loser" 
+          name="loser" 
+          required 
+          className="input" 
+        />
       </div>
 
       <div>
