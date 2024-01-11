@@ -13,6 +13,10 @@ export default function GameForm() {
   const [gameId, setGameId] = useState<string>('');
   const [player1, setPlayer1] = useState<string>('');
   const [player2, setPlayer2] = useState<string>('');
+  const [score1, setScore1] = useState<number>(0);
+  const [score2, setScore2] = useState<number>(0);
+  const [winner, setWinner] = useState<string>('');
+  const [loser, setLoser] = useState<string>('');
 
   const players: string[] = ['Goob', 'Ben', 'Ricky', 'Spare'];
 
@@ -24,15 +28,40 @@ export default function GameForm() {
 
   useEffect(() => {
     if (player1 === player2) {
-      const nextPlayer = players.find(p => p !== player1);
+      const nextPlayer = players.find((p) => p !== player1);
       if (nextPlayer) {
         setPlayer2(nextPlayer);
       }
     }
   }, [player1, player2, players]);
 
-  const handlePlayerChange = (e: ChangeEvent<HTMLSelectElement>, playerSetter: (value: string) => void) => {
+  useEffect(() => {
+    if (score1 !== 0 || score2 !== 0) {
+      if (score1 > score2) {
+        setWinner(player1);
+        setLoser(player2);
+      } else if (score2 > score1) {
+        setWinner(player2);
+        setLoser(player1);
+      } else {
+        setWinner('');
+        setLoser('');
+      }
+    }
+  }, [score1, score2, player1, player2]);
+
+  const handlePlayerChange = (
+    e: ChangeEvent<HTMLSelectElement>,
+    playerSetter: (value: string) => void
+  ) => {
     playerSetter(e.target.value);
+  };
+
+  const handleScoreChange = (
+    e: ChangeEvent<HTMLInputElement>,
+    scoreSetter: (value: number) => void
+  ) => {
+    scoreSetter(Number(e.target.value));
   };
 
   return (
@@ -76,7 +105,7 @@ export default function GameForm() {
           value={player1}
           onChange={(e) => handlePlayerChange(e, setPlayer1)}
         >
-          {players.map(player => (
+          {players.map((player) => (
             <option key={player} value={player}>
               {player}
             </option>
@@ -96,11 +125,13 @@ export default function GameForm() {
           value={player2}
           onChange={(e) => handlePlayerChange(e, setPlayer2)}
         >
-          {players.filter(p => p !== player1).map(player => (
-            <option key={player} value={player}>
-              {player}
-            </option>
-          ))}
+          {players
+            .filter((p) => p !== player1)
+            .map((player) => (
+              <option key={player} value={player}>
+                {player}
+              </option>
+            ))}
         </select>
       </div>
 
@@ -114,6 +145,8 @@ export default function GameForm() {
           name="score1"
           required
           className="input"
+          value={score1}
+          onChange={(e) => handleScoreChange(e, setScore1)}
         />
       </div>
 
@@ -127,6 +160,8 @@ export default function GameForm() {
           name="score2"
           required
           className="input"
+          value={score2}
+          onChange={(e) => handleScoreChange(e, setScore2)}
         />
       </div>
 
@@ -140,6 +175,8 @@ export default function GameForm() {
           name="winner"
           required
           className="input"
+          value={winner}
+          readOnly
         />
       </div>
 
@@ -147,12 +184,14 @@ export default function GameForm() {
         <label htmlFor="loser" className="label">
           Loser:
         </label>
-        <input 
-          type="text" 
-          id="loser" 
-          name="loser" 
-          required 
-          className="input" 
+        <input
+          type="text"
+          id="loser"
+          name="loser"
+          required
+          className="input"
+          value={loser}
+          readOnly
         />
       </div>
 
