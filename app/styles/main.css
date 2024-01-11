@@ -1,0 +1,18 @@
+body {
+  background-color: #0b3d91; /* Dark blue background */
+  color: #c6e2ff; /* Light text for contrast */
+  font-family: 'Roboto', sans-serif; /* A generic modern font */
+}
+
+.header {
+  background-color: #76b947; /* Green for the header */
+  padding: 1rem;
+  text-align: center;
+}
+
+.footer {
+  background-color: #333; /* Dark footer */
+  color: white;
+  padding: 1rem;
+  text-align: center;
+}

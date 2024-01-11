@@ -1,0 +1,27 @@
+.header {
+  background-color: #76b947; /* Dark background for the header */
+  color: white;
+  padding: 1rem 0;
+}
+
+.navbar {
+  display: flex;
+  justify-content: center; /* Center the navigation items */
+  align-items: center;
+  list-style-type: none; /* Remove default list styling */
+  margin: 0;
+  padding: 0;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none; /* Remove underline from links */
+  margin: 0 1rem; /* Space out the links */
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+.nav-link:hover {
+  background-color: #34495e; /* Slightly darker background on hover */
+}
