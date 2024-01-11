@@ -1,5 +1,9 @@
 body {
   background-color: #0b3d91; /* Dark blue background */
+  background-image: url('/assets/background.webp'); /* Background image */
+  background-size: cover; /* Cover the entire area */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-position: center; /* Center the image */
   color: #c6e2ff; /* Light text for contrast */
   font-family: 'Roboto', sans-serif; /* A generic modern font */
 }
