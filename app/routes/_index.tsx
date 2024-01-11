@@ -11,7 +11,7 @@ export const meta: MetaFunction = () => {
 export default function Index() {
   return (
     <main>
-      <h1>Main Page</h1>
+      <h1>Enter Data:</h1>
       <PingPongGameForm />
     </main>
   );

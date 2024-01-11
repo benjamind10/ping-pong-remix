@@ -10,8 +10,8 @@ const Header = () => {
         <Link to="/analytics" className="nav-link">
           Analytics
         </Link>
-        <Link to="/config" className="nav-link">
-          Config
+        <Link to="/table" className="nav-link">
+          Table View
         </Link>
       </nav>
     </header>
