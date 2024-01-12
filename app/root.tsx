@@ -7,7 +7,10 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  isRouteErrorResponse,
+  useRouteError,
 } from '@remix-run/react';
+import { ErrorBoundaryComponent } from '@remix-run/react/dist/routeModules';
 
 import MainNavigation from '~/components/MainNavigation';
 import mainStyles from '~/styles/main.css';
@@ -16,6 +19,43 @@ export const links: LinksFunction = () => [
   ...(cssBundleHref ? [{ rel: 'stylesheet', href: cssBundleHref }] : []),
   { rel: 'stylesheet', href: mainStyles },
 ];
+
+function isDefinitelyAnError(error: unknown): error is Error {
+  return typeof error === 'object' && error !== null && 'message' in error;
+}
+
+export const ErrorBoundary: ErrorBoundaryComponent = () => {
+  const error = useRouteError();
+
+  if (isRouteErrorResponse(error)) {
+    return (
+      <div className="error-container">
+        <h1>Uh oh ...</h1>
+        <p>Something went wrong.</p>
+        <pre>{error.data.message}</pre>
+        <a href="/" className="back-button">
+          Back to Home
+        </a>
+      </div>
+    );
+  }
+
+  let errorMessage = 'Unknown error';
+  if (isDefinitelyAnError(error)) {
+    errorMessage = error.message;
+  }
+
+  return (
+    <div className="error-container">
+      <h1>Uh oh ...</h1>
+      <p>Something went wrong.</p>
+      <pre>{errorMessage}</pre>
+      <a href="/" className="back-button">
+        Back to Home
+      </a>
+    </div>
+  );
+};
 
 export default function App() {
   return (

@@ -1,3 +1,30 @@
 {
-    "scores": []
+  "scores": [
+    {
+      "gameId": "8891",
+      "gameType": "11-point",
+      "player1": "Ricky",
+      "player2": "Ben",
+      "score1": 9,
+      "score2": 11,
+      "winner": "Ben",
+      "loser": "Ricky",
+      "firstServe": "Player1",
+      "id": "8891",
+      "dateTime": "2024-01-12T14:02:13.726Z"
+    },
+    {
+      "gameId": "4102",
+      "gameType": "11-point",
+      "player1": "Goob",
+      "player2": "Ben",
+      "score1": 12,
+      "score2": 11,
+      "winner": "Goob",
+      "loser": "Ben",
+      "firstServe": "Player2",
+      "id": "4102",
+      "dateTime": "2024-01-12T14:21:30.400Z"
+    }
+  ]
 }

@@ -1,0 +1,42 @@
+/* ScoreCard.css */
+.score-card-container {
+  max-width: 30rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin: 2rem auto;
+}
+
+.score-card {
+  width: 90%;
+  background-color: #76b947; /* Green background from your header */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  border-radius: 8px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.score-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.score-card header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #fff; /* White line for separation */
+  padding-bottom: 0.5rem;
+}
+
+.score-card header h2 {
+  color: #fff; /* White text for the title */
+  margin: 0;
+}
+
+.score-card p {
+  color: #d1e7dd; /* Lighter green for the content */
+  margin: 0.5rem 0;
+}

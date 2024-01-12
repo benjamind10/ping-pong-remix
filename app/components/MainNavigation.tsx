@@ -17,8 +17,8 @@ const Header = () => {
         <Link to="/analytics" className="nav-link">
           Analytics
         </Link>
-        <Link to="/table" className="nav-link">
-          Table View
+        <Link to="/scores" className="nav-link">
+          Score Cards
         </Link>
       </nav>
     </header>
