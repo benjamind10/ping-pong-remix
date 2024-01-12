@@ -134,7 +134,7 @@ import {
 import { Link } from "@remix-run/react";
 
 // app/components/MainNavigation.css
-var MainNavigation_default = "/build/_assets/MainNavigation-ALWTDVZO.css";
+var MainNavigation_default = "/ping-pong-remix/_assets/MainNavigation-ALWTDVZO.css";
 
 // app/components/MainNavigation.tsx
 import { jsxDEV as jsxDEV2 } from "react/jsx-dev-runtime";
@@ -171,7 +171,7 @@ var links = () => [
 }, this), MainNavigation_default2 = Header;
 
 // app/styles/main.css
-var main_default = "/build/_assets/main-LFRTZFAQ.css";
+var main_default = "/ping-pong-remix/_assets/main-LFRTZFAQ.css";
 
 // app/root.tsx
 import { jsxDEV as jsxDEV3 } from "react/jsx-dev-runtime";
@@ -322,7 +322,7 @@ import { useEffect, useState } from "react";
 import { Form, useActionData, useNavigation } from "@remix-run/react";
 
 // app/components/GameForm.css
-var GameForm_default = "/build/_assets/GameForm-O5NONEWB.css";
+var GameForm_default = "/ping-pong-remix/_assets/GameForm-O5NONEWB.css";
 
 // app/components/GameForm.tsx
 import { jsxDEV as jsxDEV4 } from "react/jsx-dev-runtime";
@@ -676,7 +676,7 @@ __export(scores_index_exports, {
 import { useLoaderData } from "@remix-run/react";
 
 // app/components/ScoreCard.css
-var ScoreCard_default = "/build/_assets/ScoreCard-6AVYHCSR.css";
+var ScoreCard_default = "/ping-pong-remix/_assets/ScoreCard-6AVYHCSR.css";
 
 // app/components/ScoreCard.tsx
 import { jsxDEV as jsxDEV6 } from "react/jsx-dev-runtime";
@@ -891,10 +891,10 @@ function Index() {
 }
 
 // server-assets-manifest:@remix-run/dev/assets-manifest
-var assets_manifest_default = { entry: { module: "/build/entry.client-IICNBJQ6.js", imports: ["/build/_shared/chunk-ZWGWGGVF.js", "/build/_shared/chunk-UXE6ZORE.js", "/build/_shared/chunk-GIAAE3CH.js", "/build/_shared/chunk-XU7DNSPJ.js", "/build/_shared/chunk-BOXFZXVX.js", "/build/_shared/chunk-AKQYA37I.js", "/build/_shared/chunk-UWV35TSL.js", "/build/_shared/chunk-PNG5AS42.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-Y5XFHBLC.js", imports: ["/build/_shared/chunk-5R45QZWT.js"], hasAction: !1, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !0 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/build/routes/_index-OGLFCSUX.js", imports: ["/build/_shared/chunk-S7MJJ4WG.js"], hasAction: !0, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/analytics._index": { id: "routes/analytics._index", parentId: "root", path: "analytics", index: !0, caseSensitive: void 0, module: "/build/routes/analytics._index-QU6QFFUH.js", imports: ["/build/_shared/chunk-S7MJJ4WG.js"], hasAction: !1, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/scores._index": { id: "routes/scores._index", parentId: "root", path: "scores", index: !0, caseSensitive: void 0, module: "/build/routes/scores._index-LS6EBATD.js", imports: ["/build/_shared/chunk-S7MJJ4WG.js"], hasAction: !1, hasLoader: !0, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 } }, version: "64aea906", hmr: { runtime: "/build/_shared\\chunk-AKQYA37I.js", timestamp: 1705095806267 }, url: "/build/manifest-64AEA906.js" };
+var assets_manifest_default = { entry: { module: "/ping-pong-remix/entry.client-KX2BHJCY.js", imports: ["/ping-pong-remix/_shared/chunk-5UCOWPT7.js", "/ping-pong-remix/_shared/chunk-R54AF3G5.js", "/ping-pong-remix/_shared/chunk-ZXZBVB5R.js", "/ping-pong-remix/_shared/chunk-Y6FOAVB3.js", "/ping-pong-remix/_shared/chunk-VQNJS3XS.js", "/ping-pong-remix/_shared/chunk-D2USOKIZ.js", "/ping-pong-remix/_shared/chunk-M6F2SBUH.js", "/ping-pong-remix/_shared/chunk-AAYTESNY.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/ping-pong-remix/root-KSKUOETD.js", imports: ["/ping-pong-remix/_shared/chunk-M57MYZK7.js"], hasAction: !1, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !0 }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: !0, caseSensitive: void 0, module: "/ping-pong-remix/routes/_index-LLAU42DH.js", imports: ["/ping-pong-remix/_shared/chunk-NYDMLHXF.js"], hasAction: !0, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/analytics._index": { id: "routes/analytics._index", parentId: "root", path: "analytics", index: !0, caseSensitive: void 0, module: "/ping-pong-remix/routes/analytics._index-MSRXGBTP.js", imports: ["/ping-pong-remix/_shared/chunk-NYDMLHXF.js"], hasAction: !1, hasLoader: !1, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 }, "routes/scores._index": { id: "routes/scores._index", parentId: "root", path: "scores", index: !0, caseSensitive: void 0, module: "/ping-pong-remix/routes/scores._index-WHSWOZG5.js", imports: ["/ping-pong-remix/_shared/chunk-NYDMLHXF.js"], hasAction: !1, hasLoader: !0, hasClientAction: !1, hasClientLoader: !1, hasErrorBoundary: !1 } }, version: "5509501a", hmr: { runtime: "/ping-pong-remix/_shared\\chunk-D2USOKIZ.js", timestamp: 1705096334515 }, url: "/ping-pong-remix/manifest-5509501A.js" };
 
 // server-entry-module:@remix-run/dev/server-build
-var mode = "development", assetsBuildDirectory = "public/build", future = { v3_fetcherPersist: !1, v3_relativeSplatPath: !1 }, publicPath = "/build/", entry = { module: entry_server_exports }, routes = {
+var mode = "development", assetsBuildDirectory = "public/build", future = { v3_fetcherPersist: !1, v3_relativeSplatPath: !1 }, publicPath = "/ping-pong-remix/", entry = { module: entry_server_exports }, routes = {
   root: {
     id: "root",
     parentId: void 0,
