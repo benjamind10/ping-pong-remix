@@ -32,16 +32,26 @@ export const loader: LoaderFunction = async () => {
   }
 };
 
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
 export default function Scores() {
   const scores = useLoaderData<Score[]>();
 
   return (
-    <div className="score-card-container">
-      {scores.map((score, index) => (
-        <div key={score.id} className="score-card">
-          <ScoreCard scores={[score]} /> 
-        </div>
-      ))}
-    </div>
+    <>
+      <h1>Total Games: {scores.length}</h1>
+      <div className="score-card-container">
+        {scores.map((score, index) => (
+          <div key={score.gameId} className="score-card">
+            <ScoreCard scores={[score]} />
+          </div>
+        ))}
+      </div>
+      <button onClick={scrollToTop} className="scroll-to-top">
+        ↑ Top
+      </button>
+    </>
   );
 }

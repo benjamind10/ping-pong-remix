@@ -2,6 +2,9 @@
   background-color: #76b947; /* Dark background for the header */
   color: white;
   padding: 1rem 0;
+  position: sticky; /* Make the header sticky */
+  top: 0; /* Position it at the top of the page */
+  z-index: 1000; /* Ensure it stays on top of other elements */
 }
 
 .navbar {
@@ -25,4 +28,10 @@
 
 .nav-link:hover {
   background-color: #34495e; /* Slightly darker background on hover */
+}
+
+.header-container {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }

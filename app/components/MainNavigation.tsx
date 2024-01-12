@@ -9,19 +9,21 @@ export const links: LinksFunction = () => [
 
 const Header = () => {
   return (
-    <header className="header">
-      <nav className="navbar">
-        <Link to="/" className="nav-link">
-          Home
-        </Link>
-        <Link to="/analytics" className="nav-link">
-          Analytics
-        </Link>
-        <Link to="/scores" className="nav-link">
-          Score Cards
-        </Link>
-      </nav>
-    </header>
+    <div className="header-container">
+      <header className="header">
+        <nav className="navbar">
+          <Link to="/" className="nav-link">
+            Home
+          </Link>
+          <Link to="/analytics" className="nav-link">
+            Analytics
+          </Link>
+          <Link to="/scores" className="nav-link">
+            Score Cards
+          </Link>
+        </nav>
+      </header>
+    </div>
   );
 };
 

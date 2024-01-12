@@ -33,7 +33,6 @@ export const action: ActionFunction = async ({ request }) => {
     winner: formData.get('winner') as string,
     loser: formData.get('loser') as string,
     firstServe: formData.get('firstServe') as string,
-    id: formData.get('gameId') as string,
     dateTime: new Date().toISOString(),
   };
 

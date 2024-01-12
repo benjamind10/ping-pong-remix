@@ -10,11 +10,15 @@ export const links: LinksFunction = () => {
   return [{ rel: 'stylesheet', href: styles }];
 };
 
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
 function ScoreCard({ scores }: ScoreCardProps) {
   return (
     <div id="score-card-container">
       {scores.map((score, index) => (
-        <div key={score.id} className="score-card">
+        <div key={score.gameId} className="score-card">
           <article>
             <header>
               <h2>
