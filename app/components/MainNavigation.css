@@ -17,7 +17,7 @@
 }
 
 .nav-link {
-  color: white;
+  color: black;
   text-decoration: none; /* Remove underline from links */
   font-weight: bold;
   margin: 0 1rem; /* Space out the links */
@@ -28,6 +28,7 @@
 
 .nav-link:hover {
   background-color: #34495e; /* Slightly darker background on hover */
+  color: white;
 }
 
 .header-container {

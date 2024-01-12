@@ -21,10 +21,7 @@ function ScoreCard({ scores }: ScoreCardProps) {
         <div key={score.gameId} className="score-card">
           <article>
             <header>
-              <h2>
-                Game {index + 1}: {score.gameType}
-              </h2>
-              <p>Game ID: {score.gameId}</p>
+              <h2>Game ID: {score.gameId}</h2>
             </header>
             <p>
               {score.player1} vs {score.player2}
@@ -36,7 +33,7 @@ function ScoreCard({ scores }: ScoreCardProps) {
             <p>Loser: {score.loser}</p>
             <p>
               First Serve:{' '}
-              {score.firstServe === 'player1' ? score.player1 : score.player2}
+              {score.firstServe === 'Player1' ? score.player1 : score.player2}
             </p>
             <p>Date: {score.dateTime}</p>
           </article>
