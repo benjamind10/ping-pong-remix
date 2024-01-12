@@ -1,0 +1,12 @@
+[build]
+  command = "npm run build"
+  publish = "public"
+
+[build.environment]
+  # These environment variables are required for SSR to work correctly
+  NODE_VERSION = "14.17.6"
+
+[[redirects]]
+  from = "/*"
+  to = "/.netlify/functions/server"
+  status = 200
