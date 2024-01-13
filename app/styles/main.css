@@ -1,0 +1,61 @@
+body {
+  background-color: #272d3b; /* Dark blue background */
+  background-image: url('/assets/background.webp'); /* Background image */
+  background-size: cover; /* Cover the entire area */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-position: center; /* Center the image */
+  color: #c6e2ff; /* Light text for contrast */
+  font-family: 'Roboto', sans-serif; /* A generic modern font */
+}
+
+.footer {
+  background-color: #333; /* Dark footer */
+  color: white;
+  padding: 1rem;
+  text-align: center;
+}
+
+.error-container {
+  text-align: center;
+  padding: 2rem;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  margin: 2rem auto;
+  max-width: 600px;
+}
+
+.error-container h1 {
+  color: #d9534f; /* Red color for the error title */
+}
+
+.error-container p,
+.error-container pre {
+  color: #333; /* Darker text for readability */
+}
+
+.back-button {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #76b947; /* Green button */
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.back-button:hover {
+  background-color: #5a9f37;
+}
+
+.scroll-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #76b947;
+  color: black;
+  cursor: pointer;
+  font-size: 16px;
+}
