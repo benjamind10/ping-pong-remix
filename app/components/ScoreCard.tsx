@@ -1,15 +1,32 @@
 import { LinksFunction } from '@remix-run/node'
 import styles from './ScoreCard.css'
 import { Link } from '@remix-run/react'
+import type { Score } from '~/types'
+import { ObjectId } from 'mongodb'
+import { useState } from 'react'
 
 type ScoreCardProps = {
-    scores: Score[]
+    initialScores: Score[]
 }
 
 export const links: LinksFunction = () => {
     return [{ rel: 'stylesheet', href: styles }]
 }
-function ScoreCard({ scores }: ScoreCardProps) {
+function ScoreCard({ initialScores }: ScoreCardProps) {
+    const [scores, setScores] = useState(initialScores)
+    const handleDelete = async (gameId: ObjectId | string) => {
+        const response = await fetch(`/api/delete/${gameId}`, {
+            method: 'DELETE',
+        })
+        if (response.ok) {
+            const updatedScores = scores.filter((score) => score._id !== gameId)
+            setScores(updatedScores)
+        } else {
+            // Handle error
+            console.error('Failed to delete score')
+        }
+    }
+
     return (
         <div id="score-card-container">
             {scores.map((score) => (
@@ -34,6 +51,12 @@ function ScoreCard({ scores }: ScoreCardProps) {
                             : score.player2}
                     </p>
                     <p>Date: {score.dateTime}</p>
+                    <button
+                        onClick={() => handleDelete(score._id)}
+                        className="delete-button"
+                    >
+                        Delete
+                    </button>
                 </article>
             ))}
         </div>

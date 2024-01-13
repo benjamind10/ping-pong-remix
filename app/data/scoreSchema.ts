@@ -2,7 +2,7 @@ import mongoose from 'mongoose'
 
 // Define the schema
 const scoreSchema = new mongoose.Schema({
-    gameId: { type: String, required: true },
+    gameId: { type: Number, required: true },
     gameType: { type: String, required: true },
     player1: { type: String, required: true },
     player2: { type: String, required: true },
