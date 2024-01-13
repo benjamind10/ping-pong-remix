@@ -1,23 +1,18 @@
-import { LinksFunction } from '@remix-run/node';
-import styles from './ScoreCard.css';
-import { Link } from '@remix-run/react';
+import { LinksFunction } from '@remix-run/node'
+import styles from './ScoreCard.css'
+import { Link } from '@remix-run/react'
 
 type ScoreCardProps = {
-    scores: Score[];
-};
-
-export const links: LinksFunction = () => {
-    return [{ rel: 'stylesheet', href: styles }];
-};
-
-function scrollToTop() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    scores: Score[]
 }
 
+export const links: LinksFunction = () => {
+    return [{ rel: 'stylesheet', href: styles }]
+}
 function ScoreCard({ scores }: ScoreCardProps) {
     return (
         <div id="score-card-container">
-            {scores.map((score, index) => (
+            {scores.map((score) => (
                 <article key={score.gameId} className="score-card">
                     <header>
                         <Link to={`/scores/${score.gameId}`}>
@@ -42,7 +37,7 @@ function ScoreCard({ scores }: ScoreCardProps) {
                 </article>
             ))}
         </div>
-    );
+    )
 }
 
-export default ScoreCard;
+export default ScoreCard
