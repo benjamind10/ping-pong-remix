@@ -8,6 +8,7 @@ import {
 import GameForm, { links as gameFormStyles } from '~/components/GameForm'
 import { links as navStyles } from '~/components/MainNavigation'
 import { getStoredScores, storeScores } from '~/data/scores'
+import { Score } from '~/types'
 
 export const meta: MetaFunction = () => {
     return [
@@ -30,6 +31,7 @@ export const action: ActionFunction = async ({ request }) => {
 
     // Create a Score object from form data
     const scoreData: Score = {
+        _id: formData.get('_id') as string,
         gameId: Number(formData.get('gameId')),
         gameType: formData.get('gameType') as string,
         player1: formData.get('player1') as string,
