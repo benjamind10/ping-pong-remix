@@ -2,43 +2,43 @@ import {
     type LinksFunction,
     type LoaderFunction,
     type MetaFunction,
-} from '@remix-run/node'
-import { useLoaderData } from '@remix-run/react'
-import { links as gameFormStyles } from '~/components/GameForm'
-import { links as navStyles } from '~/components/MainNavigation'
-import { links as scoresStyles } from '~/components/ScoreCard'
-import ScoreCard from '~/components/ScoreCard'
-import { getStoredScores } from '~/data/scores'
-import { Score } from '~/types'
+} from '@remix-run/node';
+import { useLoaderData } from '@remix-run/react';
+import { links as gameFormStyles } from '~/components/GameForm';
+import { links as navStyles } from '~/components/MainNavigation';
+import { links as scoresStyles } from '~/components/ScoreCard';
+import ScoreCard from '~/components/ScoreCard';
+import { getStoredScores } from '~/data/scores.server';
+import { Score } from '~/types';
 
 export const meta: MetaFunction = () => {
     return [
         { title: 'Ping-Pong Table!' },
         { name: 'description', content: 'Lets play some Ping-Pong!' },
-    ]
-}
+    ];
+};
 
 export const links: LinksFunction = () => {
-    return [...gameFormStyles(), ...navStyles(), ...scoresStyles()]
-}
+    return [...gameFormStyles(), ...navStyles(), ...scoresStyles()];
+};
 
 export const loader: LoaderFunction = async () => {
     try {
-        const scores = await getStoredScores()
-        return scores || []
+        const scores = await getStoredScores();
+        return scores || [];
     } catch (error) {
-        console.error(error)
-        return []
+        console.error(error);
+        return [];
     }
-}
+};
 
 function scrollToTop() {
-    window.scrollTo({ top: 0, behavior: 'smooth' })
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 export default function Scores() {
-    const scores = useLoaderData<Score[]>()
-    console.log(scores)
+    const scores = useLoaderData<Score[]>();
+    console.log(scores);
 
     return (
         <>
@@ -54,5 +54,5 @@ export default function Scores() {
                 ↑ Top
             </button>
         </>
-    )
+    );
 }

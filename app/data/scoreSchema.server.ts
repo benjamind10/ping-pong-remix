@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+import mongoose from 'mongoose';
 
 // Define the schema
 const scoreSchema = new mongoose.Schema({
@@ -12,9 +12,9 @@ const scoreSchema = new mongoose.Schema({
     loser: { type: String, required: true },
     firstServe: { type: String, required: true },
     dateTime: { type: Date, required: true },
-})
+});
 
 // Create the model
-const Score = mongoose.model('Score', scoreSchema)
+const Score = mongoose.model('Score', scoreSchema);
 
-export default Score
+export default Score;

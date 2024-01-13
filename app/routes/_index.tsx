@@ -4,30 +4,30 @@ import {
     type LinksFunction,
     type MetaFunction,
     LoaderFunction,
-} from '@remix-run/node'
-import GameForm, { links as gameFormStyles } from '~/components/GameForm'
-import { links as navStyles } from '~/components/MainNavigation'
-import { getStoredScores, storeScores } from '~/data/scores'
-import { Score } from '~/types'
+} from '@remix-run/node';
+import GameForm, { links as gameFormStyles } from '~/components/GameForm';
+import { links as navStyles } from '~/components/MainNavigation';
+import { getStoredScores, storeScores } from '~/data/scores.server';
+import { Score } from '~/types';
 
 export const meta: MetaFunction = () => {
     return [
         { title: 'Ping-Pong Tracker!' },
         { name: 'description', content: 'Lets play some Ping-Pong!' },
-    ]
-}
+    ];
+};
 
 export const links: LinksFunction = () => {
-    return [...gameFormStyles(), ...navStyles()]
-}
+    return [...gameFormStyles(), ...navStyles()];
+};
 
 export const loader: LoaderFunction = async () => {
-    const scores = await getStoredScores()
-    return scores
-}
+    const scores = await getStoredScores();
+    return scores;
+};
 
 export const action: ActionFunction = async ({ request }) => {
-    const formData = await request.formData()
+    const formData = await request.formData();
 
     // Create a Score object from form data
     const scoreData: Score = {
@@ -42,7 +42,7 @@ export const action: ActionFunction = async ({ request }) => {
         loser: formData.get('loser') as string,
         firstServe: formData.get('firstServe') as string,
         dateTime: new Date().toISOString(),
-    }
+    };
 
     // Validation: Check if scores and gameId are valid numbers
     if (
@@ -60,13 +60,13 @@ export const action: ActionFunction = async ({ request }) => {
                     'Content-Type': 'application/json',
                 },
             }
-        )
+        );
     }
 
-    await storeScores(scoreData)
+    await storeScores(scoreData);
 
-    return redirect('/scores')
-}
+    return redirect('/scores');
+};
 
 export default function Index() {
     return (
@@ -74,5 +74,5 @@ export default function Index() {
             <h1>Enter Data: </h1>
             <GameForm />
         </main>
-    )
+    );
 }

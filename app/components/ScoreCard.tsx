@@ -1,31 +1,33 @@
-import { LinksFunction } from '@remix-run/node'
-import styles from './ScoreCard.css'
-import { Link } from '@remix-run/react'
-import type { Score } from '~/types'
-import { ObjectId } from 'mongodb'
-import { useState } from 'react'
+import { LinksFunction } from '@remix-run/node';
+import styles from './ScoreCard.css';
+import { Link } from '@remix-run/react';
+import type { Score } from '~/types';
+import { ObjectId } from 'mongodb';
+import { useState } from 'react';
 
 type ScoreCardProps = {
-    initialScores: Score[]
-}
+    initialScores: Score[];
+};
 
 export const links: LinksFunction = () => {
-    return [{ rel: 'stylesheet', href: styles }]
-}
+    return [{ rel: 'stylesheet', href: styles }];
+};
 function ScoreCard({ initialScores }: ScoreCardProps) {
-    const [scores, setScores] = useState(initialScores)
+    const [scores, setScores] = useState(initialScores);
     const handleDelete = async (gameId: ObjectId | string) => {
         const response = await fetch(`/api/delete/${gameId}`, {
             method: 'DELETE',
-        })
+        });
         if (response.ok) {
-            const updatedScores = scores.filter((score) => score._id !== gameId)
-            setScores(updatedScores)
+            const updatedScores = scores.filter(
+                (score) => score._id !== gameId
+            );
+            setScores(updatedScores);
         } else {
             // Handle error
-            console.error('Failed to delete score')
+            console.error('Failed to delete score');
         }
-    }
+    };
 
     return (
         <div id="score-card-container">
@@ -60,7 +62,7 @@ function ScoreCard({ initialScores }: ScoreCardProps) {
                 </article>
             ))}
         </div>
-    )
+    );
 }
 
-export default ScoreCard
+export default ScoreCard;

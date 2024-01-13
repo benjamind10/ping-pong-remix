@@ -1,75 +1,75 @@
-import { useEffect, useState, ChangeEvent } from 'react'
-import { Form, useActionData, useNavigation } from '@remix-run/react'
-import { LinksFunction } from '@remix-run/node'
+import { useEffect, useState, ChangeEvent } from 'react';
+import { Form, useActionData, useNavigation } from '@remix-run/react';
+import { LinksFunction } from '@remix-run/node';
 
-import gameFormStyles from '~/components/GameForm.css'
+import gameFormStyles from '~/components/GameForm.css';
 
 type ActionData = {
-    message?: string
-}
+    message?: string;
+};
 
 export const links: LinksFunction = () => [
     { rel: 'stylesheet', href: gameFormStyles },
-]
+];
 
 export default function GameForm() {
-    const navigation = useNavigation()
-    const isSubmitting = navigation.state === 'submitting'
-    const data = useActionData<ActionData>()
+    const navigation = useNavigation();
+    const isSubmitting = navigation.state === 'submitting';
+    const data = useActionData<ActionData>();
 
-    const [gameId, setGameId] = useState<number>(0)
-    const [player1, setPlayer1] = useState<string>('')
-    const [player2, setPlayer2] = useState<string>('')
-    const [score1, setScore1] = useState<number>(0)
-    const [score2, setScore2] = useState<number>(0)
-    const [winner, setWinner] = useState<string>('')
-    const [loser, setLoser] = useState<string>('')
+    const [gameId, setGameId] = useState<number>(0);
+    const [player1, setPlayer1] = useState<string>('');
+    const [player2, setPlayer2] = useState<string>('');
+    const [score1, setScore1] = useState<number>(0);
+    const [score2, setScore2] = useState<number>(0);
+    const [winner, setWinner] = useState<string>('');
+    const [loser, setLoser] = useState<string>('');
 
-    const players: string[] = ['Goob', 'Ben', 'Ricky', 'Spare']
+    const players: string[] = ['Goob', 'Ben', 'Ricky', 'Spare'];
 
     useEffect(() => {
-        setGameId(Math.floor(Math.random() * 10000))
-        setPlayer1(players[0])
-        setPlayer2(players[1])
-    }, [])
+        setGameId(Math.floor(Math.random() * 10000));
+        setPlayer1(players[0]);
+        setPlayer2(players[1]);
+    }, []);
 
     useEffect(() => {
         if (player1 === player2) {
-            const nextPlayer = players.find((p) => p !== player1)
+            const nextPlayer = players.find((p) => p !== player1);
             if (nextPlayer) {
-                setPlayer2(nextPlayer)
+                setPlayer2(nextPlayer);
             }
         }
-    }, [player1, player2, players])
+    }, [player1, player2, players]);
 
     useEffect(() => {
         if (score1 !== 0 || score2 !== 0) {
             if (score1 > score2) {
-                setWinner(player1)
-                setLoser(player2)
+                setWinner(player1);
+                setLoser(player2);
             } else if (score2 > score1) {
-                setWinner(player2)
-                setLoser(player1)
+                setWinner(player2);
+                setLoser(player1);
             } else {
-                setWinner('')
-                setLoser('')
+                setWinner('');
+                setLoser('');
             }
         }
-    }, [score1, score2, player1, player2])
+    }, [score1, score2, player1, player2]);
 
     const handlePlayerChange = (
         e: ChangeEvent<HTMLSelectElement>,
         playerSetter: (value: string) => void
     ) => {
-        playerSetter(e.target.value)
-    }
+        playerSetter(e.target.value);
+    };
 
     const handleScoreChange = (
         e: ChangeEvent<HTMLInputElement>,
         scoreSetter: (value: number) => void
     ) => {
-        scoreSetter(Number(e.target.value))
-    }
+        scoreSetter(Number(e.target.value));
+    };
 
     return (
         <Form method="post" id="pingpong-form" className="formContainer">
@@ -226,5 +226,5 @@ export default function GameForm() {
                 {isSubmitting ? 'Submitting...' : 'Submit Game'}
             </button>
         </Form>
-    )
+    );
 }

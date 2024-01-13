@@ -1,7 +1,7 @@
 import { ObjectId } from 'mongodb'
 
 export type Score = {
-    _id: ObjectId | string
+    _id: string | ObjectId
     gameId: number
     gameType: string
     player1: string
