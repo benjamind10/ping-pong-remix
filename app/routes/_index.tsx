@@ -30,7 +30,7 @@ export const action: ActionFunction = async ({ request }) => {
 
     // Create a Score object from form data
     const scoreData: Score = {
-        gameId: formData.get('gameId') as string,
+        gameId: Number(formData.get('gameId')),
         gameType: formData.get('gameType') as string,
         player1: formData.get('player1') as string,
         player2: formData.get('player2') as string,
@@ -42,11 +42,15 @@ export const action: ActionFunction = async ({ request }) => {
         dateTime: new Date().toISOString(),
     }
 
-    // Validation: Check if scores are valid numbers
-    if (isNaN(scoreData.score1) || isNaN(scoreData.score2)) {
+    // Validation: Check if scores and gameId are valid numbers
+    if (
+        isNaN(scoreData.gameId) ||
+        isNaN(scoreData.score1) ||
+        isNaN(scoreData.score2)
+    ) {
         return new Response(
             JSON.stringify({
-                message: 'Invalid scores - scores must be numbers.',
+                message: 'Invalid input - gameId and scores must be numbers.',
             }),
             {
                 status: 400,
