@@ -1,21 +1,24 @@
-interface CredentialsInput {
-    email: string;
-    password: string;
-}
-
-type ValidationErrors = {
+export type ValidationErrors = {
     [key: string]: string;
 };
 
 function isValidEmail(value: string): boolean {
-    return /\S+@\S+.\S+/.test(value);
+    // Correct the regex to escape the dot
+    return /\S+@\S+\.\S+/.test(value);
 }
 
 function isValidPassword(value: string): boolean {
     return value.trim().length >= 7;
 }
 
-export function validateCredentials(input: CredentialsInput): void {
+// Define an interface for the input parameter
+export interface CredentialInput {
+    email: string;
+    password: string;
+    username: string;
+}
+
+export function validateCredentials(input: CredentialInput): void {
     const validationErrors: ValidationErrors = {};
 
     if (!isValidEmail(input.email)) {

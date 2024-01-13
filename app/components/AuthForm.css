@@ -53,6 +53,10 @@ input[type="password"] {
     margin-top: 20px;
 }
 
+.error-label {
+    color: red;
+}
+
 button {
     background-color: #4CAF50; /* Ping pong green */
     color: white;

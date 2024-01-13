@@ -8,9 +8,10 @@ import {
 import { FaLock, FaUserPlus } from 'react-icons/fa';
 import authFormStyles from '~/components/AuthForm.css';
 import { LinksFunction } from '@remix-run/node';
+import { ValidationErrors } from '~/data/validation.server';
 
-type ValidationErrors = {
-    [key: string]: string; // Assuming each error is a string keyed by a field name
+type ActionData = {
+    errors?: ValidationErrors;
 };
 
 export const links: LinksFunction = () => [
@@ -20,7 +21,9 @@ export const links: LinksFunction = () => [
 function AuthForm() {
     const [searchParams] = useSearchParams();
     const navigation = useNavigation();
-    const validationErrors = useActionData<ValidationErrors>();
+    const validationErrors = useActionData<ActionData>();
+
+    console.log(validationErrors);
 
     const authMode = searchParams.get('mode') || 'login';
     const submitBtnCaption = authMode === 'login' ? 'Login' : 'Create User';
@@ -65,11 +68,15 @@ function AuthForm() {
                 />
             </p>
 
-            {validationErrors && (
+            {validationErrors?.errors && (
                 <ul>
-                    {Object.entries(validationErrors).map(([key, error]) => (
-                        <li key={key}>{error}</li>
-                    ))}
+                    {Object.entries(validationErrors.errors).map(
+                        ([key, error]) => (
+                            <li className="error-label" key={key}>
+                                {error}
+                            </li>
+                        )
+                    )}
                 </ul>
             )}
 

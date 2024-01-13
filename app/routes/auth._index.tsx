@@ -6,6 +6,11 @@ import type {
 import { links as gameFormStyles } from '~/components/GameForm';
 import { links as navStyles } from '~/components/MainNavigation';
 import AuthForm, { links as authFormStyles } from '~/components/AuthForm';
+import {
+    validateCredentials,
+    ValidationErrors,
+} from '~/data/validation.server';
+import { json } from '@remix-run/node';
 
 export const meta: MetaFunction = () => {
     return [
@@ -23,8 +28,23 @@ export const action: ActionFunction = async ({ request }) => {
     const authMode = searchParams.get('mode') || 'login';
 
     const formData = await request.formData();
-    const credentials = Object.fromEntries(formData);
-    console.log(credentials);
+    const credentials: { password: string; email: string; username: string } = {
+        email: formData.get('email') as string,
+        password: formData.get('password') as string,
+        username: formData.get('username') as string,
+    };
+
+    try {
+        validateCredentials(credentials);
+    } catch (error) {
+        if (error instanceof Error) {
+            const errorObj: ValidationErrors = JSON.parse(error.message);
+            return json({ errors: errorObj });
+        } else {
+            return json({ errors: { form: 'An unexpected error occurred.' } });
+        }
+    }
+
     if (authMode === 'login') {
         // login logic
     } else {
