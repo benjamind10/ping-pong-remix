@@ -1,4 +1,5 @@
 import { json, ActionFunction } from '@remix-run/node';
+
 import { deleteScore } from '~/data/scores.server';
 
 export const action: ActionFunction = async ({ request, params }) => {

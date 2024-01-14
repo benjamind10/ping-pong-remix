@@ -6,9 +6,10 @@ import {
   useNavigation,
 } from '@remix-run/react';
 import { FaLock, FaUserPlus } from 'react-icons/fa';
-import authFormStyles from '~/components/AuthForm.css';
 import { LinksFunction } from '@remix-run/node';
 import { ValidationErrors } from '~/data/validation.server';
+
+import authFormStyles from '~/components/AuthForm.css';
 
 type ActionData = {
   errors?: ValidationErrors;
@@ -22,7 +23,6 @@ function AuthForm() {
   const [searchParams] = useSearchParams();
   const navigation = useNavigation();
   const validationErrors = useActionData<ActionData>();
-  console.log(validationErrors);
 
   const authMode = searchParams.get('mode') || 'login';
   const submitBtnCaption = authMode === 'login' ? 'Login' : 'Create User';
@@ -76,7 +76,11 @@ function AuthForm() {
       )}
 
       <div className="form-actions">
-        <button style={{ marginRight: 1 + 'em' }} disabled={isSubmitting}>
+        <button
+          type="submit"
+          style={{ marginRight: 1 + 'em' }}
+          disabled={isSubmitting}
+        >
           {isSubmitting ? 'Authenticating...' : submitBtnCaption}
         </button>
         <Link to={authMode === 'login' ? '?mode=signup' : '?mode=login'}>
