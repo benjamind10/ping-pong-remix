@@ -1,4 +1,5 @@
 import type { LinksFunction, MetaFunction } from '@remix-run/node';
+
 import { links as gameFormStyles } from '~/components/GameForm';
 import { links as navStyles } from '~/components/MainNavigation';
 

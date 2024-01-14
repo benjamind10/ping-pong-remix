@@ -10,18 +10,28 @@
     "deploy": "gh-pages -d build && ncp app/ build/app/",
     "build": "remix build",
     "start": "remix-serve build"
+
   },
+  "prisma": {
+    "seed": "node prisma/seed.cjs"
+  },
+
   "dependencies": {
+    "@prisma/client": "^5.8.0",
     "@remix-run/css-bundle": "^2.4.1",
     "@remix-run/netlify": "^1.19.3",
     "@remix-run/node": "^2.4.1",
     "@remix-run/react": "^2.4.1",
     "@remix-run/serve": "^2.4.1",
+    "@types/bcrypt": "^5.0.2",
+    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
     "isbot": "^3.6.8",
     "mongodb": "^6.3.0",
     "mongoose": "^8.0.4",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-icons": "^5.0.1"
   },
   "devDependencies": {
     "@remix-run/dev": "^2.4.1",
@@ -38,6 +48,7 @@
     "gh-pages": "^6.1.1",
     "ncp": "^2.0.0",
     "prettier": "^3.2.1",
+    "prisma": "^5.8.0",
     "typescript": "^5.1.6"
   },
   "engines": {
