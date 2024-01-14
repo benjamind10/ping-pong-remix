@@ -9,13 +9,12 @@
     "typecheck": "tsc",
     "deploy": "gh-pages -d build && ncp app/ build/app/",
     "build": "remix build",
-    "start": "remix-serve build"
-
+    "start": "remix-serve build",
+    "postinstall": "prisma generate"
   },
   "prisma": {
     "seed": "node prisma/seed.cjs"
   },
-
   "dependencies": {
     "@prisma/client": "^5.8.0",
     "@remix-run/css-bundle": "^2.4.1",
