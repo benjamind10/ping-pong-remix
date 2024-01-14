@@ -1,9 +1,9 @@
 import {
-    redirect,
     type ActionFunction,
     type LinksFunction,
-    type MetaFunction,
     LoaderFunction,
+    type MetaFunction,
+    redirect,
 } from '@remix-run/node';
 import GameForm, { links as gameFormStyles } from '~/components/GameForm';
 import { links as navStyles } from '~/components/MainNavigation';
@@ -22,8 +22,7 @@ export const links: LinksFunction = () => {
 };
 
 export const loader: LoaderFunction = async () => {
-    const scores = await getStoredScores();
-    return scores;
+    return await getStoredScores();
 };
 
 export const action: ActionFunction = async ({ request }) => {
@@ -31,7 +30,6 @@ export const action: ActionFunction = async ({ request }) => {
 
     // Create a Score object from form data
     const scoreData: Score = {
-        _id: formData.get('_id') as string,
         gameId: Number(formData.get('gameId')),
         gameType: formData.get('gameType') as string,
         player1: formData.get('player1') as string,
@@ -41,7 +39,6 @@ export const action: ActionFunction = async ({ request }) => {
         winner: formData.get('winner') as string,
         loser: formData.get('loser') as string,
         firstServe: formData.get('firstServe') as string,
-        dateTime: new Date().toISOString(),
     };
 
     // Validation: Check if scores and gameId are valid numbers

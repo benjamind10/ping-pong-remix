@@ -14,6 +14,7 @@ export const links: LinksFunction = () => {
 };
 function ScoreCard({ initialScores }: ScoreCardProps) {
     const [scores, setScores] = useState(initialScores);
+    console.log(scores);
     const handleDelete = async (gameId: ObjectId | string) => {
         const response = await fetch(`/api/delete/${gameId}`, {
             method: 'DELETE',
@@ -52,9 +53,9 @@ function ScoreCard({ initialScores }: ScoreCardProps) {
                             ? score.player1
                             : score.player2}
                     </p>
-                    <p>Date: {score.dateTime}</p>
+                    <p>Date: {score.updatedAt}</p>
                     <button
-                        onClick={() => handleDelete(score._id)}
+                        onClick={() => handleDelete(score.id)}
                         className="delete-button"
                     >
                         Delete

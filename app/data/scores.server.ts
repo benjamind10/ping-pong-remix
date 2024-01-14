@@ -1,27 +1,50 @@
-import { connectToDatabase } from './mongodb.server';
-import { ObjectId } from 'mongodb';
+import { PrismaClient } from '@prisma/client';
 import { Score } from '~/types';
-// import fs from 'fs/promises'
+
+const prisma = new PrismaClient();
 
 export async function getStoredScores() {
-    const db = await connectToDatabase();
-    const scores = await db.collection('Score').find({}).toArray();
-    return scores;
-}
-
-export async function deleteScore(gameId: string) {
     try {
-        const db = await connectToDatabase();
-        const objectId = new ObjectId(gameId);
-        await db.collection('Score').deleteOne({ _id: objectId });
+        return await prisma.score.findMany();
     } catch (error) {
-        console.error('Error deleting score:', error);
-        // Handle the error appropriately
+        console.error('Error fetching scores:', error);
+        throw error; // Rethrow the error or handle it as needed
     }
 }
 
-export async function storeScores(scoreData: Score): Promise<void> {
-    const db = await connectToDatabase();
-    // @ts-ignore
-    await db.collection('Score').insertOne(scoreData);
+export async function deleteScore(id: string) {
+    try {
+        await prisma.score.delete({
+            where: { id },
+        });
+    } catch (error) {
+        throw new Error('Failed to delete score.');
+    }
+}
+
+export async function storeScores(scoreData) {
+    try {
+        return await prisma.score.create({
+            data: {
+                // Assuming scoreData contains all necessary fields
+                ...scoreData,
+            },
+        });
+    } catch (error) {
+        console.error('Error adding score:', error);
+        throw new Error(`Failed to add score: ${error.message}`);
+    }
+}
+
+export async function updateScore(id: string, scoreData: Score) {
+    try {
+        await prisma.score.update({
+            where: { id },
+            data: {
+                ...scoreData,
+            },
+        });
+    } catch (error) {
+        throw new Error('Failed to update score.');
+    }
 }

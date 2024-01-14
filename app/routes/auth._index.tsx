@@ -10,7 +10,9 @@ import {
     validateCredentials,
     ValidationErrors,
 } from '~/data/validation.server';
-import { json } from '@remix-run/node';
+import { json, redirect } from '@remix-run/node';
+import { signup } from '~/data/auth.server';
+import { UserExistsError } from '~/data/customError.server';
 
 export const meta: MetaFunction = () => {
     return [
@@ -28,28 +30,47 @@ export const action: ActionFunction = async ({ request }) => {
     const authMode = searchParams.get('mode') || 'login';
 
     const formData = await request.formData();
-    const credentials: { password: string; email: string; username: string } = {
+    const credentials = {
         email: formData.get('email') as string,
         password: formData.get('password') as string,
         username: formData.get('username') as string,
     };
+    console.log(credentials);
 
     try {
-        validateCredentials(credentials);
-    } catch (error) {
-        if (error instanceof Error) {
-            const errorObj: ValidationErrors = JSON.parse(error.message);
-            return json({ errors: errorObj });
+        if (authMode === 'signup') {
+            console.log('Crednetials: ' + JSON.stringify(credentials));
+            await signup(credentials);
+            return redirect('/'); // Redirect after successful signup
         } else {
-            return json({ errors: { form: 'An unexpected error occurred.' } });
+            // Handle login logic
+            // ...
+        }
+    } catch (error) {
+        if (error instanceof UserExistsError) {
+            return json(
+                { errors: { email: error.message } },
+                { status: error.status }
+            );
+        } else if (error instanceof Error) {
+            try {
+                const errorObj: ValidationErrors = JSON.parse(error.message);
+                return json({ errors: errorObj });
+            } catch (parseError) {
+                // The error message isn't a JSON string
+                return json(
+                    { errors: { form: error.message } },
+                    { status: 500 }
+                );
+            }
+        } else {
+            return json(
+                { errors: { form: 'An unexpected error occurred.' } },
+                { status: 500 }
+            );
         }
     }
-
-    if (authMode === 'login') {
-        // login logic
-    } else {
-        //signup logic
-    }
+    return null;
 };
 
 export default function Analytics() {

@@ -22,7 +22,6 @@ function AuthForm() {
     const [searchParams] = useSearchParams();
     const navigation = useNavigation();
     const validationErrors = useActionData<ActionData>();
-
     console.log(validationErrors);
 
     const authMode = searchParams.get('mode') || 'login';
