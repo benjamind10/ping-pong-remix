@@ -20,9 +20,7 @@ function ScoreCard({ initialScores }: ScoreCardProps) {
             method: 'DELETE',
         });
         if (response.ok) {
-            const updatedScores = scores.filter(
-                (score) => score._id !== gameId
-            );
+            const updatedScores = scores.filter((score) => score.id !== gameId);
             setScores(updatedScores);
         } else {
             // Handle error
@@ -53,7 +51,7 @@ function ScoreCard({ initialScores }: ScoreCardProps) {
                             ? score.player1
                             : score.player2}
                     </p>
-                    <p>Date: {score.updatedAt}</p>
+                    <p>Date: {score.updateAt}</p>
                     <button
                         onClick={() => handleDelete(score.id)}
                         className="delete-button"

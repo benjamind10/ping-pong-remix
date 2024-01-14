@@ -17,7 +17,7 @@ model User {
   password String
   username String    @unique
   createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
+  updatedAt DateTime?    @updatedAt
   }
 
 model Score {
@@ -32,5 +32,5 @@ model Score {
   loser      String
   firstServe String
   createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
+  updatedAt DateTime?    @updatedAt
 }

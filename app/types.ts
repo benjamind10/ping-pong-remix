@@ -1,4 +1,5 @@
 export type Score = {
+    id: string;
     gameId: number;
     gameType: string;
     player1: string;
@@ -8,6 +9,6 @@ export type Score = {
     winner: string;
     loser: string;
     firstServe: string;
-    createdAt?: Date;
-    updateAt?: Date;
+    createdAt?: string;
+    updateAt?: string;
 };

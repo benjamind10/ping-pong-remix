@@ -1,10 +1,6 @@
-import User from '~/data/userSchema.server';
-import { compare, hash } from 'bcrypt';
-
-import {
-    AuthenticationError,
-    UserExistsError,
-} from '~/data/customError.server';
+import { prisma } from '~/data/database.server';
+import { hash } from 'bcrypt';
+import { UserExistsError } from '~/data/customError.server'; // Adjust the path as needed
 
 interface SignupCredentials {
     email: string;
@@ -12,54 +8,29 @@ interface SignupCredentials {
     username: string;
 }
 
-interface LoginCredentials {
-    email: string;
-    password: string;
-}
-
 export async function signup({ email, password, username }: SignupCredentials) {
-    console.log('Test');
     try {
-        const existingUser = await User.findOne({ email });
+        // Check if user already exists
+        const existingUser = await prisma.user.findUnique({ where: { email } });
         if (existingUser) {
             throw new UserExistsError(
-                'A user with the provided email address exists already.',
+                'A user with this email already exists.',
                 422
             );
         }
 
-        const user = new User({ email, password, username });
-        console.log('User: ' + user.toString());
-        await user.save();
+        // Hash the password and create the user
+        const passwordHash = await hash(password, 12);
+        const user = await prisma.user.create({
+            data: { email, password: passwordHash, username },
+        });
+
         return {
-            userId: user._id.toString(),
-            redirectPath: '/', // Redirect to the path you want after successful signup
+            userId: user.id,
+            redirectPath: '/',
         };
     } catch (error) {
         console.error('Signup Error:', error);
-        // Depending on your error handling strategy, you might want to throw the error
-        // or return a specific response indicating the failure
-        throw error; // or return a custom error response
+        throw error;
     }
 }
-
-// export async function login({ email, password }: LoginCredentials) {
-//     const existingUser = await User.findOne({ email }).exec();
-//
-//     if (!existingUser) {
-//         throw new AuthenticationError(
-//             'Could not log you in, please check the provided credentials.'
-//         );
-//     }
-//
-//     const passwordCorrect = await compare(password, existingUser.password);
-//
-//     if (!passwordCorrect) {
-//         throw new AuthenticationError(
-//             'Could not log you in, please check the provided credentials.'
-//         );
-//     }
-//
-//     // Assuming createUserSession creates a session and returns a redirect path
-//     // return createUserSession(existingUser._id.toString(), '/expenses');
-// }

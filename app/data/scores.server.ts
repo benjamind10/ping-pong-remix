@@ -22,17 +22,23 @@ export async function deleteScore(id: string) {
     }
 }
 
-export async function storeScores(scoreData) {
+export async function storeScores(scoreData: Score) {
     try {
         return await prisma.score.create({
             data: {
-                // Assuming scoreData contains all necessary fields
                 ...scoreData,
             },
         });
     } catch (error) {
-        console.error('Error adding score:', error);
-        throw new Error(`Failed to add score: ${error.message}`);
+        if (error instanceof Error) {
+            console.error('Error adding score:', error.message);
+            throw new Error(`Failed to add score: ${error.message}`);
+        } else {
+            console.error('An unexpected error occurred:', error);
+            throw new Error(
+                'Failed to add score: An unexpected error occurred'
+            );
+        }
     }
 }
 
