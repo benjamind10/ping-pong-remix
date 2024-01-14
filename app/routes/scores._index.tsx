@@ -4,6 +4,7 @@ import {
   type MetaFunction,
 } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
+
 import { links as gameFormStyles } from '~/components/GameForm';
 import { links as navStyles } from '~/components/MainNavigation';
 import { links as scoresStyles } from '~/components/ScoreCard';

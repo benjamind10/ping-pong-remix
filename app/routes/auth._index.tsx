@@ -3,16 +3,14 @@ import type {
   LinksFunction,
   MetaFunction,
 } from '@remix-run/node';
+import { json, redirect } from '@remix-run/node';
+
+import { ValidationErrors } from '~/data/validation.server';
+import { login, signup } from '~/data/auth.server';
+import { UserExistsError } from '~/data/customError.server';
 import { links as gameFormStyles } from '~/components/GameForm';
 import { links as navStyles } from '~/components/MainNavigation';
 import AuthForm, { links as authFormStyles } from '~/components/AuthForm';
-import {
-  validateCredentials,
-  ValidationErrors,
-} from '~/data/validation.server';
-import { json, redirect } from '@remix-run/node';
-import { login, signup } from '~/data/auth.server';
-import { UserExistsError } from '~/data/customError.server';
 
 export const meta: MetaFunction = () => {
   return [

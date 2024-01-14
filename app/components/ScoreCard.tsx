@@ -1,9 +1,9 @@
 import { LinksFunction } from '@remix-run/node';
-import styles from './ScoreCard.css';
 import { Link } from '@remix-run/react';
 import type { Score } from '~/types';
-import { ObjectId } from 'mongodb';
 import { useState } from 'react';
+
+import styles from './ScoreCard.css';
 
 type ScoreCardProps = {
   initialScores: Score[];

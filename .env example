@@ -1,0 +1,5 @@
+# Old not used
+# MONGODB_URI=
+# MONGO_PASSWORD=0
+MONGODB=mongodb+srv://<username>:<password>@<db_url>/<db_name>
+SESSION_SECRET=<secret to sign cookie>

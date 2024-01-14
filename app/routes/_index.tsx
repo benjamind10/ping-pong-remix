@@ -5,6 +5,7 @@ import {
   type MetaFunction,
   redirect,
 } from '@remix-run/node';
+
 import GameForm, { links as gameFormStyles } from '~/components/GameForm';
 import { links as navStyles } from '~/components/MainNavigation';
 import { getStoredScores, storeScores } from '~/data/scores.server';

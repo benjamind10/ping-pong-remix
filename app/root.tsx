@@ -1,6 +1,7 @@
 import { cssBundleHref } from '@remix-run/css-bundle';
 import type { LinksFunction } from '@remix-run/node';
 import {
+  Link,
   Links,
   LiveReload,
   Meta,
@@ -12,14 +13,14 @@ import {
 } from '@remix-run/react';
 import { ErrorBoundaryComponent } from '@remix-run/react/dist/routeModules';
 
-//Push Test
-
 import MainNavigation from '~/components/MainNavigation';
 import mainStyles from '~/styles/main.css';
+import errorStyles from '~/styles/errorstyles.css';
 
 export const links: LinksFunction = () => [
   ...(cssBundleHref ? [{ rel: 'stylesheet', href: cssBundleHref }] : []),
   { rel: 'stylesheet', href: mainStyles },
+  { rel: 'stylesheet', href: errorStyles },
 ];
 
 function isDefinitelyAnError(error: unknown): error is Error {
@@ -31,14 +32,25 @@ export const ErrorBoundary: ErrorBoundaryComponent = () => {
 
   if (isRouteErrorResponse(error)) {
     return (
-      <div className="error-container">
-        <h1>Uh oh ...</h1>
-        <p>Something went wrong.</p>
-        <pre>{error.data.message}</pre>
-        <a href="/" className="back-button">
-          Back to Home
-        </a>
-      </div>
+      <html lang="en">
+        <head>
+          <Meta />
+          <Links />
+          <title>{error.statusText}</title>
+        </head>
+        <body>
+          <main className="error-container">
+            <h1>{error.statusText}</h1>
+            <p>{error.data?.message || 'Something went wrong!'}</p>
+            <p>
+              Back to <Link to="/">safety</Link>!
+            </p>
+          </main>
+          <ScrollRestoration />
+          <Scripts />
+          <LiveReload />
+        </body>
+      </html>
     );
   }
 
@@ -48,14 +60,25 @@ export const ErrorBoundary: ErrorBoundaryComponent = () => {
   }
 
   return (
-    <div className="error-container">
-      <h1>Uh oh ...</h1>
-      <p>Something went wrong.</p>
-      <pre>{errorMessage}</pre>
-      <a href="/" className="back-button">
-        Back to Home
-      </a>
-    </div>
+    <html lang="en">
+      <head>
+        <Meta />
+        <Links />
+        <title>{errorMessage}</title>
+      </head>
+      <body>
+        <main className="error-container">
+          <h1>Unknown Error</h1>
+          <p>{errorMessage || 'Something went wrong!'}</p>
+          <p>
+            Back to <Link to="/">safety</Link>!
+          </p>
+        </main>
+        <ScrollRestoration />
+        <Scripts />
+        <LiveReload />
+      </body>
+    </html>
   );
 };
 
