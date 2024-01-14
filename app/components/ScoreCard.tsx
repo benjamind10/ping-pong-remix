@@ -15,7 +15,7 @@ export const links: LinksFunction = () => {
 function ScoreCard({ initialScores }: ScoreCardProps) {
   const [scores, setScores] = useState(initialScores);
   console.log(scores);
-  const handleDelete = async (gameId: ObjectId | string) => {
+  const handleDelete = async (gameId: undefined | string) => {
     const response = await fetch(`/api/delete/${gameId}`, {
       method: 'DELETE',
     });

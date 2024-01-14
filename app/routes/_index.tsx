@@ -39,7 +39,7 @@ export const action: ActionFunction = async ({ request }) => {
     winner: formData.get('winner') as string,
     loser: formData.get('loser') as string,
     firstServe: formData.get('firstServe') as string,
-    id: '',
+    // id: '',
   };
 
   // Validation: Check if scores and gameId are valid numbers

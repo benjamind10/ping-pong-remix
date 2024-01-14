@@ -1,5 +1,5 @@
 export type Score = {
-  id: string;
+  id?: string;
   gameId: number;
   gameType: string;
   player1: string;
