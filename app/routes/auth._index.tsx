@@ -60,7 +60,6 @@ export const action: ActionFunction = async ({ request }) => {
       );
     }
   }
-  return null;
 };
 
 export default function Analytics() {

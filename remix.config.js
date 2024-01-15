@@ -3,7 +3,7 @@ export default {
   ignoredRouteFiles: ['**/.*'],
   appDirectory: 'app',
   assetsBuildDirectory: 'public/build',
-  publicPath: '/ping-pong-remix/',
+  // publicPath: '/Ping-Pong-Application/',
   serverBuildPath: 'build/index.js',
-  serverBuildTarget: 'netlify',
+  serverBuildTarget: 'vercel',
 };

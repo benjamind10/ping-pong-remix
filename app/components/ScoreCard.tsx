@@ -51,7 +51,7 @@ function ScoreCard({ initialScores }: ScoreCardProps) {
             First Serve:
             {score.firstServe === 'Player1' ? score.player1 : score.player2}
           </p>
-          <p>Date: {score.updateAt}</p>
+          <p>Date: {score.createdAt}</p>
           <button
             onClick={() => handleDelete(score.id)}
             className="delete-button"

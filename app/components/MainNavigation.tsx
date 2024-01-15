@@ -8,7 +8,6 @@ export const links: LinksFunction = () => [
 
 const Header = () => {
   const userId = useLoaderData<LoaderFunction>();
-  console.log(userId);
 
   return (
     <div className="header-container">
@@ -25,9 +24,9 @@ const Header = () => {
           </Link>
           {userId ? (
             <Form action="/logout" method="post">
-              <button type="submit" className="nav-link">
+              <Link type="submit" className="nav-link" to="/">
                 Logout
-              </button>
+              </Link>
             </Form>
           ) : (
             <Link to="/auth" className="nav-link">
