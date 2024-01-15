@@ -8,7 +8,7 @@
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
     "typecheck": "tsc",
     "deploy": "gh-pages -d build && ncp app/ build/app/",
-    "build": "remix build",
+    "build": "remix build && prisma generate && next build",
     "start": "remix-serve build"
 
   },
