@@ -1,5 +1,5 @@
 import { cssBundleHref } from '@remix-run/css-bundle';
-import type { LinksFunction } from '@remix-run/node';
+import type { LinksFunction, LoaderFunction } from '@remix-run/node';
 import {
   Link,
   Links,
@@ -16,6 +16,7 @@ import { ErrorBoundaryComponent } from '@remix-run/react/dist/routeModules';
 import MainNavigation from '~/components/MainNavigation';
 import mainStyles from '~/styles/main.css';
 import errorStyles from '~/styles/errorstyles.css';
+import { getUserFromSession } from './data/auth.server';
 
 export const links: LinksFunction = () => [
   ...(cssBundleHref ? [{ rel: 'stylesheet', href: cssBundleHref }] : []),
@@ -26,6 +27,10 @@ export const links: LinksFunction = () => [
 function isDefinitelyAnError(error: unknown): error is Error {
   return typeof error === 'object' && error !== null && 'message' in error;
 }
+
+export const loader: LoaderFunction = async ({ request }) => {
+  return await getUserFromSession(request);
+};
 
 export const ErrorBoundary: ErrorBoundaryComponent = () => {
   const error = useRouteError();

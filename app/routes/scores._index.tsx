@@ -9,6 +9,7 @@ import { links as gameFormStyles } from '~/components/GameForm';
 import { links as navStyles } from '~/components/MainNavigation';
 import { links as scoresStyles } from '~/components/ScoreCard';
 import ScoreCard from '~/components/ScoreCard';
+import { getUserFromSession } from '~/data/auth.server';
 import { getStoredScores } from '~/data/scores.server';
 import { Score } from '~/types';
 
@@ -39,7 +40,6 @@ function scrollToTop() {
 
 export default function Scores() {
   const scores = useLoaderData<Score[]>();
-  console.log(scores);
 
   return (
     <>

@@ -1,7 +1,5 @@
-import { PrismaClient } from '@prisma/client';
 import { Score } from '~/types';
-
-const prisma = new PrismaClient();
+import { prisma } from '~/data/database.server';
 
 export async function getStoredScores() {
   try {

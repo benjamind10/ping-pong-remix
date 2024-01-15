@@ -33,7 +33,6 @@ export const action: ActionFunction = async ({ request }) => {
     password: formData.get('password') as string,
     username: formData.get('username') as string,
   };
-  console.log(credentials);
 
   try {
     if (authMode === 'signup') {
@@ -61,7 +60,6 @@ export const action: ActionFunction = async ({ request }) => {
       );
     }
   }
-  return null;
 };
 
 export default function Analytics() {
