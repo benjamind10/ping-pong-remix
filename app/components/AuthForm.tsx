@@ -76,7 +76,11 @@ function AuthForm() {
       )}
 
       <div className="form-actions">
-        <button style={{ marginRight: 1 + 'em' }} disabled={isSubmitting}>
+        <button
+          type="submit"
+          style={{ marginRight: 1 + 'em' }}
+          disabled={isSubmitting}
+        >
           {isSubmitting ? 'Authenticating...' : submitBtnCaption}
         </button>
         <Link to={authMode === 'login' ? '?mode=signup' : '?mode=login'}>

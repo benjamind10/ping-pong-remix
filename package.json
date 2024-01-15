@@ -8,22 +8,22 @@
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
     "typecheck": "tsc",
     "deploy": "gh-pages -d build && ncp app/ build/app/",
-    "build": "remix build && prisma generate && next build",
-    "start": "remix-serve build"
-
+    "build": "remix build",
+    "start": "remix-serve build",
+    "postinstall": "prisma generate"
   },
   "prisma": {
     "seed": "node prisma/seed.cjs"
   },
-
   "dependencies": {
-    "@prisma/client": "^5.8.0",
+    "@prisma/client": "^5.8.1",
     "@remix-run/css-bundle": "^2.4.1",
     "@remix-run/netlify": "^1.19.3",
     "@remix-run/node": "^2.4.1",
     "@remix-run/react": "^2.4.1",
     "@remix-run/serve": "^2.4.1",
     "@types/bcrypt": "^5.0.2",
+    "axios": "^1.6.5",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "isbot": "^3.6.8",
@@ -35,6 +35,7 @@
   },
   "devDependencies": {
     "@remix-run/dev": "^2.4.1",
+    "@types/axios": "^0.14.0",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^6.7.4",
@@ -48,7 +49,7 @@
     "gh-pages": "^6.1.1",
     "ncp": "^2.0.0",
     "prettier": "^3.2.1",
-    "prisma": "^5.8.0",
+    "prisma": "^5.8.1",
     "typescript": "^5.1.6"
   },
   "engines": {

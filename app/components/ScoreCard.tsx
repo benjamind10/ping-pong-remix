@@ -4,6 +4,7 @@ import type { Score } from '~/types';
 import { useState } from 'react';
 
 import styles from './ScoreCard.css';
+import axios from 'axios';
 
 type ScoreCardProps = {
   initialScores: Score[];
@@ -14,17 +15,18 @@ export const links: LinksFunction = () => {
 };
 function ScoreCard({ initialScores }: ScoreCardProps) {
   const [scores, setScores] = useState(initialScores);
-  console.log(scores);
+
   const handleDelete = async (gameId: undefined | string) => {
-    const response = await fetch(`/api/delete/${gameId}`, {
-      method: 'DELETE',
-    });
-    if (response.ok) {
-      const updatedScores = scores.filter((score) => score.id !== gameId);
-      setScores(updatedScores);
-    } else {
-      // Handle error
-      console.error('Failed to delete score');
+    try {
+      const response = await axios.delete(`/api/delete/${gameId}`);
+      if (response.status === 200) {
+        const updatedScores = scores.filter((score) => score.id !== gameId);
+        setScores(updatedScores);
+      } else {
+        console.error('Failed to delete score');
+      }
+    } catch (error) {
+      console.error('Failed to delete score', error);
     }
   };
 
@@ -49,7 +51,7 @@ function ScoreCard({ initialScores }: ScoreCardProps) {
             First Serve:
             {score.firstServe === 'Player1' ? score.player1 : score.player2}
           </p>
-          <p>Date: {score.updateAt}</p>
+          <p>Date: {score.createdAt}</p>
           <button
             onClick={() => handleDelete(score.id)}
             className="delete-button"
