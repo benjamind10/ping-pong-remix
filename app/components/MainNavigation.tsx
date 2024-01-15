@@ -1,6 +1,5 @@
-import { LinksFunction } from '@remix-run/node';
-import { Link, useLoaderData } from '@remix-run/react';
-
+import { LinksFunction, LoaderFunction } from '@remix-run/node';
+import { Link, Form, useLoaderData } from '@remix-run/react';
 import navStyles from '~/components/MainNavigation.css';
 
 export const links: LinksFunction = () => [
@@ -8,7 +7,8 @@ export const links: LinksFunction = () => [
 ];
 
 const Header = () => {
-  const userId = useLoaderData();
+  const userId = useLoaderData<LoaderFunction>();
+  console.log(userId);
 
   return (
     <div className="header-container">
@@ -23,7 +23,13 @@ const Header = () => {
           <Link to="/scores" className="nav-link">
             Score Cards
           </Link>
-          {!userId && (
+          {userId ? (
+            <Form action="/logout" method="post">
+              <button type="submit" className="nav-link">
+                Logout
+              </button>
+            </Form>
+          ) : (
             <Link to="/auth" className="nav-link">
               Login
             </Link>

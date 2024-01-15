@@ -43,6 +43,20 @@ async function createUserSession(userId: string, redirectPath: string) {
   });
 }
 
+export async function getUserFromSession(request: Request) {
+  const session = await sessionStorage.getSession(
+    request.headers.get('Cookie')
+  );
+
+  const userId = session.get('userId');
+
+  if (!userId) {
+    return null;
+  }
+
+  return userId;
+}
+
 export async function signup({ email, password, username }: SignupCredentials) {
   try {
     // Check if user already exists

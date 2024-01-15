@@ -9,6 +9,7 @@ import { links as gameFormStyles } from '~/components/GameForm';
 import { links as navStyles } from '~/components/MainNavigation';
 import { links as scoresStyles } from '~/components/ScoreCard';
 import ScoreCard from '~/components/ScoreCard';
+import { getUserFromSession } from '~/data/auth.server';
 import { getStoredScores } from '~/data/scores.server';
 import { Score } from '~/types';
 
@@ -23,13 +24,19 @@ export const links: LinksFunction = () => {
   return [...gameFormStyles(), ...navStyles(), ...scoresStyles()];
 };
 
-export const loader: LoaderFunction = async () => {
+export const loader: LoaderFunction = async ({ request }) => {
   try {
     const scores = await getStoredScores();
-    return scores || [];
+    const userId = await getUserFromSession(request);
+    console.log(userId);
+
+    return {
+      scores: scores || [],
+      userId: userId || null,
+    };
   } catch (error) {
     console.error(error);
-    return [];
+    return { scores: [], userId: null };
   }
 };
 
@@ -38,8 +45,9 @@ function scrollToTop() {
 }
 
 export default function Scores() {
-  const scores = useLoaderData<Score[]>();
-  console.log(scores);
+  const { scores } = useLoaderData<{
+    scores: Score[];
+  }>();
 
   return (
     <>
