@@ -6,8 +6,11 @@ import {
   redirect,
 } from '@remix-run/node';
 
-import GameForm, { links as gameFormStyles } from '~/components/GameForm';
-import { links as navStyles } from '~/components/MainNavigation';
+import GameForm, {
+  links as gameFormStyles,
+} from '~/components/GameForm/GameForm';
+import { links as navStyles } from '~/components/MainNavigation/MainNavigation';
+import { requireUserSession } from '~/data/auth.server';
 import { getStoredScores, storeScores } from '~/data/scores.server';
 import { Score } from '~/types';
 
@@ -22,7 +25,8 @@ export const links: LinksFunction = () => {
   return [...gameFormStyles(), ...navStyles()];
 };
 
-export const loader: LoaderFunction = async () => {
+export const loader: LoaderFunction = async ({ request }) => {
+  await requireUserSession(request);
   return await getStoredScores();
 };
 
