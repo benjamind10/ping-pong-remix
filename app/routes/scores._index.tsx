@@ -4,12 +4,13 @@ import {
   type MetaFunction,
 } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
+import { useState } from 'react';
 
-import { links as gameFormStyles } from '~/components/GameForm';
-import { links as navStyles } from '~/components/MainNavigation';
-import { links as scoresStyles } from '~/components/ScoreCard';
-import ScoreCard from '~/components/ScoreCard';
-import { getUserFromSession } from '~/data/auth.server';
+import { links as gameFormStyles } from '~/components/GameForm/GameForm';
+import { links as navStyles } from '~/components/MainNavigation/MainNavigation';
+import { links as scoresStyles } from '~/components/ScoreCard/ScoreCard';
+import ScoreCard from '~/components/ScoreCard/ScoreCard';
+import { getUserFromSession, requireUserSession } from '~/data/auth.server';
 import { getStoredScores } from '~/data/scores.server';
 import { Score } from '~/types';
 
@@ -24,13 +25,15 @@ export const links: LinksFunction = () => {
   return [...gameFormStyles(), ...navStyles(), ...scoresStyles()];
 };
 
-export const loader: LoaderFunction = async () => {
+export const loader: LoaderFunction = async ({ request }) => {
+  await requireUserSession(request);
+
   try {
     const scores = await getStoredScores();
-    return scores || [];
+    return { scores };
   } catch (error) {
     console.error(error);
-    return [];
+    throw new Response('Failed to load scores.', { status: 500 });
   }
 };
 
@@ -39,13 +42,31 @@ function scrollToTop() {
 }
 
 export default function Scores() {
-  const scores = useLoaderData<Score[]>();
+  const { scores } = useLoaderData<{
+    scores: Score[];
+  }>();
+
+  const [searchTerm, setSearchTerm] = useState('');
+  const filteredScores = scores.filter(
+    (score) =>
+      score.player1.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      score.player2.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <>
-      <h1>Total Games: {scores.length}</h1>
+      <h1>Total Games: {filteredScores.length}</h1>
+      <div className="form">
+        <input
+          type="text"
+          placeholder="Search by player name"
+          className="form-input"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </div>
       <div className="score-card-container">
-        {scores.map((score) => (
+        {filteredScores.map((score) => (
           <div key={score.gameId} className="score-card">
             <ScoreCard initialScores={[score]} />
           </div>
