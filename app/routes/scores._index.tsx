@@ -4,6 +4,7 @@ import {
   type MetaFunction,
 } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
+import { useState } from 'react';
 
 import { links as gameFormStyles } from '~/components/GameForm/GameForm';
 import { links as navStyles } from '~/components/MainNavigation/MainNavigation';
@@ -45,11 +46,27 @@ export default function Scores() {
     scores: Score[];
   }>();
 
+  const [searchTerm, setSearchTerm] = useState('');
+  const filteredScores = scores.filter(
+    (score) =>
+      score.player1.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      score.player2.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <>
-      <h1>Total Games: {scores.length}</h1>
+      <h1>Total Games: {filteredScores.length}</h1>
+      <div className="form">
+        <input
+          type="text"
+          placeholder="Search by player name"
+          className="form-input"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </div>
       <div className="score-card-container">
-        {scores.map((score) => (
+        {filteredScores.map((score) => (
           <div key={score.gameId} className="score-card">
             <ScoreCard initialScores={[score]} />
           </div>
