@@ -1,12 +1,24 @@
 import { Score } from '~/types';
 import { prisma } from '~/data/database.server';
 
-export async function getStoredScores() {
+export async function getStoredScores(searchTerm?: string) {
   try {
-    return await prisma.score.findMany();
+    const query = searchTerm
+      ? {
+          where: {
+            OR: [
+              { player1: { contains: searchTerm, mode: 'insensitive' } },
+              { player2: { contains: searchTerm, mode: 'insensitive' } },
+            ],
+          },
+        }
+      : {};
+
+    // @ts-ignore
+    return await prisma.score.findMany(query);
   } catch (error) {
     console.error('Error fetching scores:', error);
-    throw error; // Rethrow the error or handle it as needed
+    throw error;
   }
 }
 
