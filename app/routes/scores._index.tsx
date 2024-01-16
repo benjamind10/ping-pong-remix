@@ -5,11 +5,11 @@ import {
 } from '@remix-run/node';
 import { useLoaderData } from '@remix-run/react';
 
-import { links as gameFormStyles } from '~/components/GameForm';
-import { links as navStyles } from '~/components/MainNavigation';
-import { links as scoresStyles } from '~/components/ScoreCard';
-import ScoreCard from '~/components/ScoreCard';
-import { getUserFromSession } from '~/data/auth.server';
+import { links as gameFormStyles } from '~/components/GameForm/GameForm';
+import { links as navStyles } from '~/components/MainNavigation/MainNavigation';
+import { links as scoresStyles } from '~/components/ScoreCard/ScoreCard';
+import ScoreCard from '~/components/ScoreCard/ScoreCard';
+import { getUserFromSession, requireUserSession } from '~/data/auth.server';
 import { getStoredScores } from '~/data/scores.server';
 import { Score } from '~/types';
 
@@ -25,18 +25,14 @@ export const links: LinksFunction = () => {
 };
 
 export const loader: LoaderFunction = async ({ request }) => {
+  await requireUserSession(request);
+
   try {
     const scores = await getStoredScores();
-    const userId = await getUserFromSession(request);
-    console.log(userId);
-
-    return {
-      scores: scores || [],
-      userId: userId || null,
-    };
+    return { scores };
   } catch (error) {
     console.error(error);
-    return { scores: [], userId: null };
+    throw new Response('Failed to load scores.', { status: 500 });
   }
 };
 
