@@ -47,7 +47,14 @@ export default function Scores() {
   }>();
 
   const [searchTerm, setSearchTerm] = useState('');
-  const filteredScores = scores.filter(
+
+  const sortedScores = [...scores].sort((a, b) => {
+    const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
+    const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
+    return dateB - dateA;
+  });
+
+  const filteredScores = sortedScores.filter(
     (score) =>
       score.player1.toLowerCase().includes(searchTerm.toLowerCase()) ||
       score.player2.toLowerCase().includes(searchTerm.toLowerCase())
