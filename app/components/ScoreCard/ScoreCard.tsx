@@ -39,8 +39,8 @@ function ScoreCard({ initialScores }: ScoreCardProps) {
                     <header>
                         <Link to={`/scores/${score.gameId}`}>
                             <h2>Game ID: {score.gameId}</h2>
-                            <h3>Game Type: {score.gameType}</h3>
                         </Link>
+                        <h3>Game Type: {score.gameType}</h3>
                     </header>
                     <p>
                         {score.player1} vs {score.player2}
