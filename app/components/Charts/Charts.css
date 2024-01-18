@@ -1,0 +1,14 @@
+body {
+  background-color: #272d3b; /* New solid color for the body */
+  background-image: none; /* Remove the background image */
+}
+
+.chart-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  width: 100%;
+  padding: 1rem;
+}
