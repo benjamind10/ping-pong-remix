@@ -10,7 +10,7 @@ import { links as gameFormStyles } from '~/components/GameForm/GameForm';
 import { links as navStyles } from '~/components/MainNavigation/MainNavigation';
 import { links as scoresStyles } from '~/components/ScoreCard/ScoreCard';
 import ScoreCard from '~/components/ScoreCard/ScoreCard';
-import { getUserFromSession, requireUserSession } from '~/data/auth.server';
+import { requireUserSession } from '~/data/auth.server';
 import { getStoredScores } from '~/data/scores.server';
 import { Score } from '~/types';
 
