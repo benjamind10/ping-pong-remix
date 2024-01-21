@@ -60,10 +60,27 @@ export default function Scores() {
       score.player2.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  let wins = 0;
+  let losses = 0;
+  filteredScores.forEach((score) => {
+    if (score.winner.toLowerCase() === searchTerm.toLowerCase()) {
+      wins++;
+    } else if (
+      (score.player1.toLowerCase() === searchTerm.toLowerCase() ||
+        score.player2.toLowerCase() === searchTerm.toLowerCase()) &&
+      score.loser.toLowerCase() === searchTerm.toLowerCase()
+    ) {
+      losses++;
+    }
+  });
+
+  // Calculate win-loss ratio
+  let ratio = losses !== 0 ? (wins / losses).toFixed(2) : 'N/A';
+
   return (
     <>
       <h1>Total Games: {filteredScores.length}</h1>
-      <div className="form">
+      <div>
         <input
           type="text"
           placeholder="Search by player name"
@@ -72,6 +89,13 @@ export default function Scores() {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
       </div>
+      {searchTerm && (
+        <div>
+          <p>Wins: {wins}</p>
+          <p>Losses: {losses}</p>
+          <p>W:L Ratio: {ratio}</p>
+        </div>
+      )}
       <div className="score-card-container">
         {filteredScores.map((score) => (
           <div key={score.gameId} className="score-card">
