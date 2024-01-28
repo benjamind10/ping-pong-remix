@@ -32,8 +32,12 @@ export const loader: LoaderFunction = async ({ request }) => {
     const scores = await getStoredScores();
     return { scores };
   } catch (error) {
-    console.error(error);
-    throw new Response('Failed to load scores.', { status: 500 });
+    console.error('Error fetching scores:', error);
+    // Return an empty array or a specific error message instead of throwing an error
+    return {
+      scores: [],
+      error: 'Failed to load scores. Please try again later.',
+    };
   }
 };
 
@@ -54,11 +58,15 @@ export default function Scores() {
     return dateB - dateA;
   });
 
-  const filteredScores = sortedScores.filter(
-    (score) =>
-      score.player1.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      score.player2.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredScores = sortedScores.filter((score) => {
+    const player1Match = score.player1
+      ?.toLowerCase()
+      .includes(searchTerm.toLowerCase());
+    const player2Match = score.player2
+      ?.toLowerCase()
+      .includes(searchTerm.toLowerCase());
+    return player1Match || player2Match;
+  });
 
   return (
     <>
