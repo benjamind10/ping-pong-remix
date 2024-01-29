@@ -14,6 +14,7 @@ import { links as navStyles } from '~/components/MainNavigation/MainNavigation';
 import { requireUserSession } from '~/data/auth.server';
 import { getStoredScores, storeScores } from '~/data/scores.server';
 import { getAllUsers } from '~/data/users.server';
+import { ScoreData } from '~/types';
 // import { Score } from '~/types';
 
 type UserType = {
@@ -48,8 +49,8 @@ export const loader: LoaderFunction = async ({ request }) => {
 
   if (scores.length > 0) {
     const lastScore = scores[scores.length - 1];
-    winner = lastScore.winner; // username of the winner
-    loser = lastScore.loser; // username of the loser
+    winner = lastScore.winner || '';
+    loser = lastScore.loser || '';
   }
 
   return { scores, users, winner, loser }; // Return winner and loser usernames
@@ -58,25 +59,29 @@ export const loader: LoaderFunction = async ({ request }) => {
 export const action: ActionFunction = async ({ request }) => {
   const formData = await request.formData();
 
-  // Create a Score object from form data
-  const scoreData = {
-    gameId: Number(formData.get('gameId')),
+  // Extract values from formData
+  const player1Id = formData.get('player1Id') as string;
+  const player2Id = formData.get('player2Id') as string;
+  const score1 = Number(formData.get('score1'));
+  const score2 = Number(formData.get('score2'));
+
+  // Determine winner and loser based on scores
+  const winnerId = score1 > score2 ? player1Id : player2Id;
+  const loserId = score1 > score2 ? player2Id : player1Id;
+
+  const scoreData: ScoreData = {
+    // gameId: Number(formData.get('gameId')),
     gameType: formData.get('gameType') as string,
-    player1Id: formData.get('player1Id') as string, // Assuming the form now submits player IDs
-    player2Id: formData.get('player2Id') as string, // Assuming the form now submits player IDs
-    score1: Number(formData.get('score1')),
-    score2: Number(formData.get('score2')),
-    winnerId: formData.get('winnerId') as string, // Assuming the form now submits winner ID
-    loserId: formData.get('loserId') as string, // Assuming the form now submits loser ID
+    player1Id: player1Id,
+    player2Id: player2Id,
+    score1: score1,
+    score2: score2,
+    winnerId: winnerId, // Assign winnerId
+    loserId: loserId, // Assign loserId
     firstServe: formData.get('firstServe') as string,
   };
 
-  // Validation: Check if scores and gameId are valid numbers
-  if (
-    isNaN(scoreData.gameId) ||
-    isNaN(scoreData.score1) ||
-    isNaN(scoreData.score2)
-  ) {
+  if (isNaN(scoreData.score1) || isNaN(scoreData.score2)) {
     return new Response(
       JSON.stringify({
         message: 'Invalid input - gameId and scores must be numbers.',

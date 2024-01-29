@@ -12,7 +12,8 @@ import { links as scoresStyles } from '~/components/ScoreCard/ScoreCard';
 import ScoreCard from '~/components/ScoreCard/ScoreCard';
 import { requireUserSession } from '~/data/auth.server';
 import { getStoredScores } from '~/data/scores.server';
-import { Score } from '~/types';
+import { getUserById } from '~/data/users.server';
+import { ScoreType, ScoreTypeWithUsernames } from '~/types';
 
 export const meta: MetaFunction = () => {
   return [
@@ -25,19 +26,35 @@ export const links: LinksFunction = () => {
   return [...gameFormStyles(), ...navStyles(), ...scoresStyles()];
 };
 
-export const loader: LoaderFunction = async ({ request }) => {
-  await requireUserSession(request);
-
+export const loader: LoaderFunction = async () => {
   try {
     const scores = await getStoredScores();
-    return { scores };
+    const scoresWithUsernames = await Promise.all(
+      scores.map(async (score) => {
+        let winnerUsername = 'Unknown';
+        let loserUsername = 'Unknown';
+
+        if (score.winnerId) {
+          const winner = await getUserById(score.winnerId);
+          winnerUsername = winner?.username ?? 'Unknown';
+        }
+
+        if (score.loserId) {
+          const loser = await getUserById(score.loserId);
+          loserUsername = loser?.username ?? 'Unknown';
+        }
+
+        return {
+          ...score,
+          winnerUsername,
+          loserUsername,
+        };
+      })
+    );
+
+    return { scoresWithUsernames };
   } catch (error) {
-    console.error('Error fetching scores:', error);
-    // Return an empty array or a specific error message instead of throwing an error
-    return {
-      scores: [],
-      error: 'Failed to load scores. Please try again later.',
-    };
+    throw new Error('Failed to load scores');
   }
 };
 
@@ -46,26 +63,23 @@ function scrollToTop() {
 }
 
 export default function Scores() {
-  const { scores } = useLoaderData<{
-    scores: Score[];
+  const { scoresWithUsernames } = useLoaderData<{
+    scoresWithUsernames: ScoreTypeWithUsernames[];
   }>();
 
   const [searchTerm, setSearchTerm] = useState('');
 
-  const sortedScores = [...scores].sort((a, b) => {
+  const sortedScores = [...scoresWithUsernames].sort((a, b) => {
     const dateA = a.createdAt ? new Date(a.createdAt).getTime() : 0;
     const dateB = b.createdAt ? new Date(b.createdAt).getTime() : 0;
     return dateB - dateA;
   });
 
   const filteredScores = sortedScores.filter((score) => {
-    const player1Match = score.player1
-      ?.toLowerCase()
-      .includes(searchTerm.toLowerCase());
-    const player2Match = score.player2
-      ?.toLowerCase()
-      .includes(searchTerm.toLowerCase());
-    return player1Match || player2Match;
+    return (
+      score.winnerUsername.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      score.loserUsername.toLowerCase().includes(searchTerm.toLowerCase())
+    );
   });
 
   return (
@@ -82,7 +96,7 @@ export default function Scores() {
       </div>
       <div className="score-card-container">
         {filteredScores.map((score) => (
-          <div key={score.gameId} className="score-card">
+          <div key={score._id} className="score-card">
             <ScoreCard initialScores={[score]} />
           </div>
         ))}

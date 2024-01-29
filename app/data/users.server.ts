@@ -2,7 +2,7 @@ import { prisma } from '~/data/database.server';
 
 export async function getUserByUsername(username: string) {
   try {
-    const user = await prisma.user_test.findUnique({
+    const user = await prisma.user.findUnique({
       where: { username },
     });
     return user;
@@ -14,7 +14,7 @@ export async function getUserByUsername(username: string) {
 
 export async function getAllUsers() {
   try {
-    const users = await prisma.user_test.findMany();
+    const users = await prisma.user.findMany();
     return users;
   } catch (error) {
     console.error('Error fetching all users:', error);
@@ -24,7 +24,7 @@ export async function getAllUsers() {
 
 export async function getUserById(userId: string) {
   try {
-    const user = await prisma.user_test.findUnique({
+    const user = await prisma.user.findUnique({
       where: { id: userId },
     });
     return user;

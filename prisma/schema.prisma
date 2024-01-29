@@ -1,55 +1,30 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-
 generator client {
   provider = "prisma-client-js"
 }
+
 datasource db {
   provider = "mongodb"
   url      = env("MONGODB")
 }
 
 model User {
-  id       String    @id @default(auto()) @map("_id") @db.ObjectId
-  email    String    @unique
-  password String
-  username String    @unique
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
-  }
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  email           String   @unique
+  password        String
+  username        String   @unique
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  wins            Int      @default(0)
+  losses          Int      @default(0)
+  scoresAsPlayer1 Score[]  @relation("Player1Games")
+  scoresAsPlayer2 Score[]  @relation("Player2Games")
+}
 
 model Score {
-  id         String      @id @default(auto()) @map("_id") @db.ObjectId
-  gameId     Int
-  gameType   String
-  player1    String
-  player2    String
-  score1     Int
-  score2     Int
-  winner     String
-  loser      String
-  firstServe String
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
-}
-
-model User_test {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  email     String   @unique
-  password  String
-  username  String   @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  player1Scores Score_test[] @relation("player1Scores")
-  player2Scores Score_test[] @relation("player2Scores")
-  wonScores     Score_test[] @relation("winnerScores")
-  lostScores    Score_test[] @relation("loserScores")
-}
-
-model Score_test {
   id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  gameId     Int
   gameType   String
   player1Id  String   @db.ObjectId
   player2Id  String   @db.ObjectId
@@ -60,8 +35,6 @@ model Score_test {
   firstServe String
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
-  player1    User_test     @relation("player1Scores", fields: [player1Id], references: [id])
-  player2    User_test     @relation("player2Scores", fields: [player2Id], references: [id])
-  winner     User_test     @relation("winnerScores", fields: [winnerId], references: [id])
-  loser      User_test     @relation("loserScores", fields: [loserId], references: [id])
+  player1    User     @relation("Player1Games", fields: [player1Id], references: [id])
+  player2    User     @relation("Player2Games", fields: [player2Id], references: [id])
 }
