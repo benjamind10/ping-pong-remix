@@ -65,7 +65,7 @@ export const action: ActionFunction = async ({ request }) => {
     }
 };
 
-export default function Analytics() {
+export default function Auth() {
     return (
         <main>
             <h1>Auth Page</h1>

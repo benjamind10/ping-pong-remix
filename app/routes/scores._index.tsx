@@ -8,12 +8,10 @@ import { useState } from 'react';
 
 import { links as gameFormStyles } from '~/components/GameForm/GameForm';
 import { links as navStyles } from '~/components/MainNavigation/MainNavigation';
-import { links as scoresStyles } from '~/components/ScoreCard/ScoreCard';
-import ScoreCard from '~/components/ScoreCard/ScoreCard';
-import { requireUserSession } from '~/data/auth.server';
+import ScoreCard, { links as scoresStyles } from '~/components/ScoreCard/ScoreCard';
 import { getStoredScores } from '~/data/scores.server';
 import { getUserById } from '~/data/users.server';
-import { ScoreType, ScoreTypeWithUsernames } from '~/types';
+import { ScoreTypeWithUsernames } from '~/types';
 
 export const meta: MetaFunction = () => {
   return [
@@ -97,7 +95,7 @@ export default function Scores() {
   });
 
   // Calculate win-loss ratio
-  let ratio = losses !== 0 ? (wins / losses).toFixed(2) : 'N/A';
+  const ratio = losses !== 0 ? (wins / losses).toFixed(2) : 'N/A';
 
   return (
     <>

@@ -39,7 +39,7 @@ function ScoreCard({ initialScores }: ScoreCardProps) {
         <article key={score._id} className="score-card">
           <header>
             <Link to={`/scores/${score._id}`}>
-              <h2>Game ID: {score._id}</h2>
+              <h2>Game ID: {score._id?.slice(-4)}</h2>
             </Link>
             <h3>Game Type: {score.gameType}</h3>
           </header>
@@ -49,8 +49,8 @@ function ScoreCard({ initialScores }: ScoreCardProps) {
           <p>
             Score: {score.score1} - {score.score2}
           </p>
-          <p>Winner: {score.winnerUsername}</p> {/* Updated line */}
-          <p>Loser: {score.loserUsername}</p> {/* Updated line */}
+          <p>Winner: {score.winnerUsername}</p>
+          <p>Loser: {score.loserUsername}</p>
           <p>
             First Serve:
             {score.firstServe === 'Player1' ? score.player1 : score.player2}

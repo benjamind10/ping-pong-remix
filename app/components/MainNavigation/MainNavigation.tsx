@@ -48,6 +48,13 @@ const Header = () => {
           >
             Score Cards
           </Link>
+          <Link
+            to={`/scores/${userId}`}
+            className="nav-link"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            User Profile
+          </Link>
           {userId ? (
             <Form action="/logout" method="post">
               <button
