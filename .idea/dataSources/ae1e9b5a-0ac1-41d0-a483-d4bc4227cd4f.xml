@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="PingPong@pingpong.jvyb96r.mongodb.net">
-  <database-model serializer="dbm" dbms="MONGO" family-id="MONGO" format-version="4.51">
+  <database-model serializer="dbm" dbms="MONGO" family-id="MONGO" format-version="4.49">
     <root id="1">
       <ServerVersion>6.0.13</ServerVersion>
     </root>
-    <schema id="2" parent="1" name="admin"/>
-    <schema id="3" parent="1" name="local"/>
-    <schema id="4" parent="1" name="PingPong">
+    <schema id="2" parent="1" name="PingPong">
       <Current>1</Current>
-      <LastIntrospectionLocalTimestamp>2024-01-29.03:00:10</LastIntrospectionLocalTimestamp>
+      <LocalIntrospectionTimestamp>2024-01-29.22:03:53</LocalIntrospectionTimestamp>
     </schema>
-    <table id="5" parent="4" name="Score"/>
-    <table id="6" parent="4" name="User"/>
+    <schema id="3" parent="1" name="admin"/>
+    <schema id="4" parent="1" name="local"/>
+    <table id="5" parent="2" name="Score"/>
+    <table id="6" parent="2" name="User"/>
     <column id="7" parent="5" name="_id">
       <DasType>ObjectId|12s</DasType>
       <Position>1</Position>

@@ -3,7 +3,7 @@
 //
 // import { links as gameFormStyles } from '~/components/GameForm';
 // import { links as navStyles } from '~/components/MainNavigation';
-// import { links as scoresStyles } from '~/components/ScoreCard';
+// import { links as scoresStyles } from '~/components/Cards';
 // import { getStoredScores } from '~/data/scores';
 //
 // export const links: LinksFunction = () => {
