@@ -48,6 +48,14 @@ export default function GameForm({ users }: GameFormProps) {
     }, [users]);
 
     useEffect(() => {
+        if (score1 >= 21 || score2 >= 21) {
+            setGameType('21-point');
+        } else {
+            setGameType('11-point');
+        }
+    }, [score1, score2]);
+
+    useEffect(() => {
         if (score1 !== 0 || score2 !== 0) {
             if (score1 > score2) {
                 setWinner(player1);
@@ -89,11 +97,14 @@ export default function GameForm({ users }: GameFormProps) {
     const validateAndSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        const minScore = gameType === '11-point' ? 11 : 21;
+        // Determine the game type based on the scores
+        const is21PointGame = score1 >= 21 || score2 >= 21;
+        const finalGameType = is21PointGame ? '21-point' : '11-point';
+        const minScore = is21PointGame ? 21 : 11;
 
         if (score1 < minScore && score2 < minScore) {
             alert(
-                `In a ${gameType} game, one of the players must have at least ${minScore} points to submit.`
+                `In a ${finalGameType} game, one of the players must have at least ${minScore} points to submit.`
             );
             return;
         }
@@ -102,6 +113,13 @@ export default function GameForm({ users }: GameFormProps) {
             alert(`The players can't be the same.`);
             return;
         }
+
+        // Add a hidden input to the form to send the final game type
+        const hiddenInput = document.createElement('input');
+        hiddenInput.type = 'hidden';
+        hiddenInput.name = 'gameType';
+        hiddenInput.value = finalGameType;
+        e.currentTarget.appendChild(hiddenInput);
 
         e.currentTarget.submit();
     };

@@ -26,6 +26,7 @@ const calculateRatio = (
 
 function UserCard({ userData }: UserCardProps) {
     const ratio = calculateRatio(userData.wins, userData.losses);
+
     return (
         <div className="user-card-container">
             <article className="user-card">
@@ -37,6 +38,9 @@ function UserCard({ userData }: UserCardProps) {
                 <p>Created At: {userData.createdAt}</p>
                 <p>Wins: {userData.wins}</p>
                 <p>Losses: {userData.losses}</p>
+                <p>
+                    Total Games: {(userData.losses || 0) + (userData.wins || 0)}
+                </p>
                 <p>W:L Ratio: {ratio}</p>
             </article>
         </div>
