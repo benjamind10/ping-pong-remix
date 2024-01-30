@@ -13,8 +13,9 @@ import BarChart from '~/components/Charts/BarChart';
 import { links as chartStyles } from '~/components/Charts/BarChart';
 
 import { getStoredScores } from '~/data/scores.server';
-import { Score } from '~/types';
+import { ScoreTypeWithUsernames } from '~/types';
 import { CSSProperties } from 'react';
+import { getUserById } from '~/data/users.server';
 
 export const meta: MetaFunction = () => {
   return [
@@ -29,11 +30,25 @@ export const links: LinksFunction = () => {
 
 export const loader: LoaderFunction = async () => {
   try {
-    const scores = await getStoredScores();
-    return scores || [];
+    let scores = await getStoredScores();
+    scores = await Promise.all(
+      scores.map(async (score) => {
+        // Check if winnerId is defined
+        if (score.winnerId) {
+          const winnerUser = await getUserById(score.winnerId);
+          return {
+            ...score,
+            winnerUsername: winnerUser?.username ?? 'Unknown',
+          };
+        } else {
+          return { ...score, winnerUsername: 'Unknown' };
+        }
+      })
+    );
+    return json(scores);
   } catch (error) {
     console.error(error);
-    return [];
+    return json([]);
   }
 };
 
@@ -47,7 +62,7 @@ const chartOptions = {
   },
 };
 
-function countWins(scores: Score[]): Record<string, number> {
+function countWins(scores: ScoreTypeWithUsernames[]): Record<string, number> {
   const winCounts: Record<string, number> = {};
 
   scores.forEach((score) => {
@@ -58,7 +73,7 @@ function countWins(scores: Score[]): Record<string, number> {
   return winCounts;
 }
 
-function transformScoresToChartData(scores: Score[]) {
+function transformScoresToChartData(scores: ScoreTypeWithUsernames[]) {
   const winCounts = countWins(scores);
 
   // Get unique player names and their respective win counts
@@ -73,7 +88,7 @@ function transformScoresToChartData(scores: Score[]) {
         data: wins,
         backgroundColor: 'rgba(54, 162, 235, 0.2)',
         borderColor: 'rgba(54, 162, 235, 1)',
-        borderWidth: 1,
+        borderWidth: 2,
       },
     ],
   };
@@ -82,7 +97,7 @@ function transformScoresToChartData(scores: Score[]) {
 }
 
 export default function Analytics() {
-  const scores = useLoaderData<Score[]>();
+  const scores = useLoaderData<ScoreTypeWithUsernames[]>();
 
   // Transform the scores data to the chart data format
   const chartData = transformScoresToChartData(scores);

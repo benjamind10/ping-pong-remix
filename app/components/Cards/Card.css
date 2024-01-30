@@ -1,4 +1,4 @@
-/* ScoreCard.css */
+/* Cards.css */
 body {
   background-color: #272d3b; /* New solid color for the body */
   background-image: none; /* Remove the background image */
@@ -62,4 +62,47 @@ body {
   padding: 5px 10px;
   cursor: pointer;
   /* Other styling as needed */
+}
+
+/* UserCard.css */
+.user-card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 2rem auto;
+}
+
+.user-card {
+  flex: 0 0 calc(33.333% - 2rem);
+  background-color: #76b947;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  margin: 1rem;
+  border-radius: 8px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.user-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.user-card header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid black;
+  padding-bottom: 0.5rem;
+}
+
+.user-card header h2 {
+  color: black;
+  font-weight: bold;
+  margin: 0;
+}
+
+.user-card p {
+  color: black;
+  margin: 0.5rem 0;
 }

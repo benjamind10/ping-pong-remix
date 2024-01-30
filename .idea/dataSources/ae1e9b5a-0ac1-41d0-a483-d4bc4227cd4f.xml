@@ -1,11 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<dataSource name="@pingpong.jvyb96r.mongodb.net">
+<dataSource name="PingPong@pingpong.jvyb96r.mongodb.net">
   <database-model serializer="dbm" dbms="MONGO" family-id="MONGO" format-version="4.49">
     <root id="1">
-      <ServerVersion>6.0.12</ServerVersion>
+      <ServerVersion>6.0.13</ServerVersion>
     </root>
-    <schema id="2" parent="1" name="sample_mflix"/>
+    <schema id="2" parent="1" name="PingPong">
+      <Current>1</Current>
+      <LocalIntrospectionTimestamp>2024-01-29.22:03:53</LocalIntrospectionTimestamp>
+    </schema>
     <schema id="3" parent="1" name="admin"/>
     <schema id="4" parent="1" name="local"/>
+    <table id="5" parent="2" name="Score"/>
+    <table id="6" parent="2" name="User"/>
+    <column id="7" parent="5" name="_id">
+      <DasType>ObjectId|12s</DasType>
+      <Position>1</Position>
+    </column>
+    <column id="8" parent="5" name="firstServe">
+      <DasType>String|12s</DasType>
+      <Position>1</Position>
+    </column>
+    <column id="9" parent="5" name="player1Id">
+      <DasType>ObjectId|12s</DasType>
+      <Position>1</Position>
+    </column>
+    <column id="10" parent="5" name="winnerId">
+      <DasType>ObjectId|12s</DasType>
+      <Position>1</Position>
+    </column>
+    <column id="11" parent="5" name="createdAt">
+      <DasType>ISODate|91s</DasType>
+      <Position>2</Position>
+    </column>
+    <column id="12" parent="5" name="gameType">
+      <DasType>String|12s</DasType>
+      <Position>2</Position>
+    </column>
+    <column id="13" parent="5" name="player2Id">
+      <DasType>ObjectId|12s</DasType>
+      <Position>2</Position>
+    </column>
+    <column id="14" parent="5" name="loserId">
+      <DasType>ObjectId|12s</DasType>
+      <Position>3</Position>
+    </column>
+    <column id="15" parent="5" name="score1">
+      <DasType>Int64|12s</DasType>
+      <Position>3</Position>
+    </column>
+    <column id="16" parent="5" name="score2">
+      <DasType>Int64|12s</DasType>
+      <Position>4</Position>
+    </column>
+    <column id="17" parent="5" name="updatedAt">
+      <DasType>ISODate|91s</DasType>
+      <Position>5</Position>
+    </column>
+    <column id="18" parent="6" name="_id">
+      <DasType>ObjectId|12s</DasType>
+      <Position>1</Position>
+    </column>
+    <column id="19" parent="6" name="createdAt">
+      <DasType>ISODate|91s</DasType>
+      <Position>1</Position>
+    </column>
+    <column id="20" parent="6" name="losses">
+      <DasType>Int64|12s</DasType>
+      <Position>1</Position>
+    </column>
+    <column id="21" parent="6" name="updatedAt">
+      <DasType>ISODate|91s</DasType>
+      <Position>1</Position>
+    </column>
+    <column id="22" parent="6" name="wins">
+      <DasType>Int64|12s</DasType>
+      <Position>1</Position>
+    </column>
+    <column id="23" parent="6" name="email">
+      <DasType>String|12s</DasType>
+      <Position>2</Position>
+    </column>
+    <column id="24" parent="6" name="password">
+      <DasType>String|12s</DasType>
+      <Position>2</Position>
+    </column>
+    <column id="25" parent="6" name="username">
+      <DasType>String|12s</DasType>
+      <Position>2</Position>
+    </column>
   </database-model>
 </dataSource>
