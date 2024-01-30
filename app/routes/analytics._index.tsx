@@ -8,8 +8,7 @@ import {
 import { useLoaderData } from '@remix-run/react';
 import { links as gameFormStyles } from '~/components/GameForm/GameForm';
 import { links as navStyles } from '~/components/MainNavigation/MainNavigation';
-import BarChart from '~/components/Charts/BarChart';
-import { links as chartStyles } from '~/components/Charts/BarChart';
+import BarChart, { links as chartStyles } from '~/components/Charts/BarChart';
 
 import { getStoredScores } from '~/data/scores.server';
 import { ScoreTypeWithUsernames } from '~/types';
@@ -45,7 +44,10 @@ export const loader: LoaderFunction = async () => {
         return json(scores);
     } catch (error) {
         console.error(error);
-        return json([]);
+        return json(
+            { errors: { loader: 'Failed to load scores' } },
+            { status: 500 }
+        );
     }
 };
 
@@ -76,7 +78,7 @@ function transformScoresToChartData(scores: ScoreTypeWithUsernames[]) {
     const players = Object.keys(winCounts);
     const wins = players.map((player) => winCounts[player]);
 
-    const chartData = {
+    return {
         labels: players,
         datasets: [
             {
@@ -88,8 +90,6 @@ function transformScoresToChartData(scores: ScoreTypeWithUsernames[]) {
             },
         ],
     };
-
-    return chartData;
 }
 
 export default function Analytics() {

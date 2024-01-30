@@ -1,4 +1,4 @@
-import { LinksFunction } from '@remix-run/node';
+import { json, LinksFunction } from '@remix-run/node';
 import { Link } from '@remix-run/react';
 import type { ScoreTypeWithUsernames } from '~/types';
 import { useState } from 'react';
@@ -27,9 +27,17 @@ function ScoreCard({ initialScores }: ScoreCardProps) {
                 setScores(updatedScores);
             } else {
                 console.error('Failed to delete score');
+                return json(
+                    { errors: { loader: 'Failed to delete score' } },
+                    { status: 500 }
+                );
             }
         } catch (error) {
             console.error('Failed to delete score', error);
+            return json(
+                { errors: { loader: 'Failed to delete score ' + error } },
+                { status: 500 }
+            );
         }
     };
 

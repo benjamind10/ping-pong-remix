@@ -1,4 +1,5 @@
 import {
+    json,
     type LinksFunction,
     type LoaderFunction,
     type MetaFunction,
@@ -52,7 +53,10 @@ export const loader: LoaderFunction = async () => {
 
         return { scoresWithUsernames };
     } catch (error) {
-        throw new Error('Failed to load scores');
+        return json(
+            { errors: { loader: 'Failed to load scores' } },
+            { status: 500 }
+        );
     }
 };
 

@@ -29,7 +29,10 @@ export const loader: LoaderFunction = async () => {
         return json(users);
     } catch (error) {
         console.error('Failed to load users:', error);
-        throw new Response('Failed to load users', { status: 500 });
+        return json(
+            { errors: { users: 'Failed to load users' } },
+            { status: 500 }
+        );
     }
 };
 
