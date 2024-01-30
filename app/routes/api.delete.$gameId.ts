@@ -19,6 +19,6 @@ export const action: ActionFunction = async ({ request, params }) => {
     return json('Score deleted successfully', { status: 200 });
   } catch (error) {
     console.error('Error deleting score:', error);
-    return json('Error deleting score', { status: 500 });
+    return json({ error: 'Error deleting score' }, { status: 500 });
   }
 };
