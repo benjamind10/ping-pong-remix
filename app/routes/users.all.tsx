@@ -14,7 +14,7 @@ import { UserType } from '~/types';
 
 export const meta: MetaFunction = () => {
     return [
-        { title: 'Ping-Pong Auth!' },
+        { title: 'Ping-Pong All Users!' },
         { name: 'description', content: 'Lets play some Ping-Pong!' },
     ];
 };
@@ -29,7 +29,10 @@ export const loader: LoaderFunction = async () => {
         return json(users);
     } catch (error) {
         console.error('Failed to load users:', error);
-        throw new Response('Failed to load users', { status: 500 });
+        return json(
+            { errors: { users: 'Failed to load users' } },
+            { status: 500 }
+        );
     }
 };
 
