@@ -33,10 +33,7 @@ function ScoreCard({ initialScores }: ScoreCardProps) {
                 );
             }
         } catch (error) {
-<<<<<<< HEAD
             console.error('Failed to delete score', error);
-=======
->>>>>>> fe95ccb684d9aedcd9df3c562b6ed8987d0bdf4a
             return json(
                 { errors: { loader: 'Failed to delete score ' + error } },
                 { status: 500 }
