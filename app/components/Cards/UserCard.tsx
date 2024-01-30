@@ -14,7 +14,6 @@ const calculateRatio = (
     wins: number | undefined,
     losses: number | undefined
 ): string => {
-    // Treat undefined as 0
     const totalWins = wins || 0;
     const totalLosses = losses || 0;
 
