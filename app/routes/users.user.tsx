@@ -14,7 +14,7 @@ import { requireUserSession } from '~/data/auth.server';
 
 export const meta: MetaFunction = () => {
     return [
-        { title: 'Ping-Pong Auth!' },
+        { title: 'Ping-Pong User Profile!' },
         { name: 'description', content: 'Lets play some Ping-Pong!' },
     ];
 };

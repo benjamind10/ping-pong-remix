@@ -14,7 +14,7 @@ import { UserType } from '~/types';
 
 export const meta: MetaFunction = () => {
     return [
-        { title: 'Ping-Pong Auth!' },
+        { title: 'Ping-Pong All Users!' },
         { name: 'description', content: 'Lets play some Ping-Pong!' },
     ];
 };

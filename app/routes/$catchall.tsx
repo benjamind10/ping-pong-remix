@@ -6,6 +6,10 @@ import stylesUrl from '~/styles/errorstyles.css';
 export const loader: LoaderFunction = async ({ request }) => {
     console.log(`Unmatched request URL: ${request.url}`);
     // This response is for server-side logging and won't affect what's rendered on the client side
+<<<<<<< HEAD
+=======
+    // return new Response('Not Found', { status: 404 });
+>>>>>>> fe95ccb684d9aedcd9df3c562b6ed8987d0bdf4a
     return json({ errors: { page: 'Not Found' } }, { status: 404 });
 };
 

@@ -54,7 +54,11 @@ export const loader: LoaderFunction = async ({ request }) => {
         loser = lastScore.loser || '';
     }
 
+<<<<<<< HEAD
     return { scores, users, winner, loser }; // Return winner and loser usernames
+=======
+    return json({ scores, users, winner, loser }); // Return winner and loser usernames
+>>>>>>> fe95ccb684d9aedcd9df3c562b6ed8987d0bdf4a
 };
 
 export const action: ActionFunction = async ({ request }) => {
@@ -91,9 +95,26 @@ export const action: ActionFunction = async ({ request }) => {
             },
             { status: 400 }
         );
+<<<<<<< HEAD
     }
 
     await storeScores(scoreData);
+=======
+        // return new Response(
+        //     JSON.stringify({
+        //         message: 'Invalid input - gameId and scores must be numbers.',
+        //     }),
+        //     {
+        //         status: 400,
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //         },
+        //     }
+        // );
+    }
+
+    json(storeScores(scoreData));
+>>>>>>> fe95ccb684d9aedcd9df3c562b6ed8987d0bdf4a
 
     return redirect('/scores');
 };
