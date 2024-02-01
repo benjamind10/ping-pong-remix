@@ -16,11 +16,12 @@ const calculateRatio = (
 ): string => {
     const totalWins = wins || 0;
     const totalLosses = losses || 0;
+    const totalGames = (wins || 0) + (losses || 0);
 
     if (totalLosses === 0) {
         return 'N/A';
     } else {
-        return (totalWins / totalLosses).toFixed(2);
+        return (totalWins / totalGames).toFixed(2);
     }
 };
 
