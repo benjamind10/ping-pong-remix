@@ -1,9 +1,8 @@
 import { useEffect, useState, ChangeEvent } from 'react';
 import { Form, useActionData, useNavigation } from '@remix-run/react';
-import { LinksFunction, LoaderFunction } from '@remix-run/node';
+import { LinksFunction } from '@remix-run/node';
 
 import gameFormStyles from '~/components/GameForm/GameForm.css';
-import { getUserById } from '~/data/users.server';
 
 type UserType = {
     id: string;
@@ -31,7 +30,7 @@ export default function GameForm({ users }: GameFormProps) {
     const isSubmitting = navigation.state === 'submitting';
     const data = useActionData<ActionData>();
 
-    const [players, setPlayers] = useState<UserType[]>(users);
+    const [players] = useState<UserType[]>(users);
     const [player1, setPlayer1] = useState<string>('');
     const [player2, setPlayer2] = useState<string>('');
     const [score1, setScore1] = useState<number>(0);
