@@ -105,7 +105,7 @@ export default function Scores() {
 
     return (
         <>
-            <h1>Total Games: {filteredScores.length}</h1>
+            <h1>Total Games: {sortedScores.length}</h1>
             <div>
                 <input
                     type="text"
