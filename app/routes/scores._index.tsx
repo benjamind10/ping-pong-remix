@@ -68,6 +68,7 @@ export default function Scores() {
     const { scoresWithUsernames } = useLoaderData<{
         scoresWithUsernames: ScoreTypeWithUsernames[];
     }>();
+    console.log(scoresWithUsernames);
 
     const [searchTerm, setSearchTerm] = useState('');
 
@@ -105,23 +106,24 @@ export default function Scores() {
 
     return (
         <>
-            <h1>Total Games: {sortedScores.length}</h1>
-            <div>
-                <input
-                    type="text"
-                    placeholder="Search by player name"
-                    className="form-input"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                />
-            </div>
-            {searchTerm && (
-                <div>
-                    <p>Wins: {wins}</p>
-                    <p>Losses: {losses}</p>
-                    <p>W:L Ratio: {ratio}</p>
-                </div>
-            )}
+            <h1>Total Games: {scoresWithUsernames.length}</h1>
+            {/*Need to fix the search feature*/}
+            {/*<div>*/}
+            {/*    <input*/}
+            {/*        type="text"*/}
+            {/*        placeholder="Search by player name (not working)"*/}
+            {/*        className="form-input"*/}
+            {/*        value={searchTerm}*/}
+            {/*        onChange={(e) => setSearchTerm(e.target.value)}*/}
+            {/*    />*/}
+            {/*</div>*/}
+            {/*{searchTerm && (*/}
+            {/*    <div>*/}
+            {/*        <p>Wins: {wins}</p>*/}
+            {/*        <p>Losses: {losses}</p>*/}
+            {/*        <p>W:L Ratio: {ratio}</p>*/}
+            {/*    </div>*/}
+            {/*)}*/}
             <div className="score-card-container">
                 {filteredScores.map((score) => (
                     <div key={score._id} className="score-card">
